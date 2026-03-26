@@ -1181,7 +1181,7 @@
 
   <!-- TECH INSIGHTS MODAL -->
   <div id="techModal" class="modal-root" style="
-    display: none; position: fixed; inset: 0; z-index: 10002;
+    display: none; position: fixed; inset: 0; z-index: 10000;
     background: rgba(0,0,0,0.96); backdrop-filter: blur(25px);
     align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
   " onclick="closeTechModal()">
@@ -1363,7 +1363,7 @@
     // ── Chart Detail Sub-Modal ─────────────────────────────────
     const chartModalHTML = `
       <div id="chartDetailModal" onclick="if(event.target===this)this.style.display='none'"
-           style="display:none; position:fixed; inset:0; z-index:9999;
+           style="display:none; position:fixed; inset:0; z-index:11000;
                   background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
                   align-items:center; justify-content:center; padding:1rem;">
         <div style="background:#0f0f15; border:1px solid rgba(255,255,255,0.1); border-radius:1.25rem;
