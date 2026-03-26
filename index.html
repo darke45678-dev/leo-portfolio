@@ -1202,56 +1202,69 @@
     const techData = {
       yolo: {
         label: 'MODEL ITERATION & PERFORMANCE',
-        title: 'YOLOv11m 模型演進與訓練詳解',
+        title: 'YOLOv11 系列訓練深度對比 (V3 vs V4)',
         html: `
-          <div style="overflow-x:auto; margin-bottom: 2rem; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
-            <table style="width:100%; border-collapse: collapse; background: rgba(255,255,255,0.02); font-size: 0.85rem; text-align: left;">
-              <thead style="background: rgba(194,156,109,0.15); color: var(--gold);">
-                <tr>
-                  <th style="padding:1rem;">版本</th>
-                  <th style="padding:1rem;">模型版本</th>
-                  <th style="padding:1rem;">資料集 (張)</th>
-                  <th style="padding:1rem;">訓練輪數</th>
-                  <th style="padding:1rem;">mAP@50</th>
-                </tr>
-              </thead>
-              <tbody style="color: rgba(255,255,255,0.8);">
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding:1rem;">V1</td>
-                  <td style="padding:1rem;">YOLOv11n</td>
-                  <td style="padding:1rem;">1,000</td>
-                  <td style="padding:1rem;">50</td>
-                  <td style="padding:1rem; color: #ef4444;">0.757</td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding:1rem;">V2</td>
-                  <td style="padding:1rem;">YOLOv11n</td>
-                  <td style="padding:1rem;">3,948</td>
-                  <td style="padding:1rem;">50</td>
-                  <td style="padding:1rem; color: #f59e0b;">0.846</td>
-                </tr>
-                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                  <td style="padding:1rem;">V3</td>
-                  <td style="padding:1rem;">YOLOv11n</td>
-                  <td style="padding:1rem;">5,560</td>
-                  <td style="padding:1rem;">300</td>
-                  <td style="padding:1rem;">0.854</td>
-                </tr>
-                <tr style="background: rgba(34,197,94,0.05); font-weight: bold;">
-                  <td style="padding:1rem; color: #22c55e;">Final</td>
-                  <td style="padding:1rem;">YOLOv11m</td>
-                  <td style="padding:1rem;">5,560</td>
-                  <td style="padding:1rem;">300</td>
-                  <td style="padding:1rem; color: #22c55e; font-size: 1rem;">0.868</td>
-                </tr>
-              </tbody>
-            </table>
+          <div style="background:rgba(255,255,255,0.03); padding: 1.5rem; border-radius:1rem; margin-bottom: 2rem;">
+            <h4 style="color:var(--gold); margin-bottom: 1rem; font-size: 1rem;">🚀 核心版本進化：n (Nano) ➜ s (Small)</h4>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="background:rgba(0,0,0,0.3); padding: 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.05);">
+                <div style="color:var(--gold); font-weight:700; font-size:0.8rem;">V3 版本 (yolo11n)</div>
+                <ul style="font-size:0.75rem; color:var(--muted); margin-top:0.5rem; line-height:1.6;">
+                  <li>• 分辨率: 640px | Epochs: 50</li>
+                  <li>• Augmentations: Brightness, Exposure, Blur</li>
+                  <li>• 特點: 初步建立 12 類食材辨識基準</li>
+                </ul>
+              </div>
+              <div style="background:rgba(34,197,94,0.05); padding: 1rem; border-radius: 0.5rem; border: 1px solid #22c55e33;">
+                <div style="color:#22c55e; font-weight:700; font-size:0.8rem;">V4 版本 (yolo11s - 推薦版)</div>
+                <ul style="font-size:0.75rem; color:var(--muted); margin-top:0.5rem; line-height:1.6;">
+                  <li>• 分辨率: <b>960px</b> | Epochs: <b>70</b></li>
+                  <li>• Augmentations: <b>Crop, Rotation, Hue, Noise (強化)</b></li>
+                  <li>• 特點: 針對腐爛食材 (葉菜類) 大幅擴充資料集</li>
+                </ul>
+              </div>
+            </div>
           </div>
-          <div style="background:rgba(194,156,109,0.05); padding: 1.5rem; border-radius:1rem; border-left: 4px solid var(--gold);">
-            <h4 style="margin-bottom:0.5rem; color:var(--gold);">優化關鍵總結：</h4>
-            <p style="font-size: 0.85rem; color:rgba(255,255,255,0.7); line-height:1.6;">
-              透過從 V1 到 Final 的持續迭代，我們將資料量擴充了 <b>5.5 倍</b>。V2 階段的精準度大幅躍進證明了高品質標註數據的價值，而 Final 階段從 Nano 切換至 <b>Medium (YOLOv11m)</b> 模型，則是在不顯著犧牲推論速度的前提下，將 mAP 值推向了 <b>0.868</b> 的卓越水準。
-            </p>
+
+          <div style="margin-bottom: 2rem;">
+            <h4 style="color:var(--gold); margin-bottom: 1rem; font-size: 0.9rem;">📊 技術演進對照表</h4>
+            <img src="v3_v4_summary.png" style="width:100%; border-radius:0.5rem; border:1px solid rgba(255,255,255,0.1);" onerror="this.style.display='none'">
+            <div style="margin-top:1rem; display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+               <div style="font-size: 0.75rem; color: var(--muted); border-left: 2px solid var(--gold); padding-left: 1rem;">
+                 <strong style="color:#fff;">訓練優化策略：</strong><br>
+                 從 Adam 升級至 <b>AdamW</b>，優化權重衰減。導入 <b>Mosaic 1.0</b> 增強邊緣辨識。
+               </div>
+               <div style="font-size: 0.75rem; color: var(--muted); border-left: 2px solid var(--blue); padding-left: 1rem;">
+                 <strong style="color:#fff;">精確度提升：</strong><br>
+                 mAP@50 從 0.854 攀升至 <b>0.868</b>，特別在「腐爛菠菜」辨識率有顯著提升。
+               </div>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
+            <h4 style="color:var(--gold); margin-bottom: 1rem; font-size: 0.9rem;">📈 訓練實測數據 (Confusion Matrix & Curves)</h4>
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom:1rem;">
+              <div style="text-align:center;">
+                <p style="font-size:0.7rem; color:var(--gold); margin-bottom:0.5rem;">V3 混淆矩陣</p>
+                <img src="v3_conf.png" style="width:100%; border-radius:0.5rem;" onerror="this.style.display='none'">
+              </div>
+              <div style="text-align:center;">
+                <p style="font-size:0.7rem; color:var(--gold); margin-bottom:0.5rem;">V4 混淆矩陣</p>
+                <img src="v4_conf.png" style="width:100%; border-radius:0.5rem;" onerror="this.style.display='none'">
+              </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <div style="text-align:center;">
+                <p style="font-size:0.7rem; color:var(--blue); margin-bottom:0.5rem;">V3 訓練曲線</p>
+                <img src="v3_curves.png" style="width:100%; border-radius:0.5rem;" onerror="this.style.display='none'">
+              </div>
+              <div style="text-align:center;">
+                <p style="font-size:0.7rem; color:var(--blue); margin-bottom:0.5rem;">V4 訓練曲線</p>
+                <img src="v4_curves.png" style="width:100%; border-radius:0.5rem;" onerror="this.style.display='none'">
+              </div>
+            </div>
           </div>
         `
       },
