@@ -195,6 +195,38 @@ nav.scrolled {
   transition: color 0.2s;
 }
 .nav-links a:hover { color: var(--white); }
+
+/* Audio Toggle Button */
+.audio-btn {
+  background: none; border: none; outline: none;
+  cursor: pointer; display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.5rem 0.5rem; color: var(--muted);
+  transition: color 0.3s;
+  pointer-events: auto !important;
+}
+.audio-btn:hover { color: var(--white); }
+.audio-line-group {
+  display: flex; align-items: flex-end; gap: 2.5px; height: 12px;
+}
+.audio-line {
+  width: 1.5px; background: currentColor; min-height: 2px; height: 2px;
+  transition: height 0.3s ease;
+}
+.audio-btn.playing .audio-line {
+  animation: audio-pulse 0.6s ease-in-out infinite alternate;
+}
+.audio-btn.playing .l1 { animation-delay: 0s; }
+.audio-btn.playing .l2 { animation-delay: 0.1s; }
+.audio-btn.playing .l3 { animation-delay: 0.2s; }
+.audio-btn.playing .l4 { animation-delay: 0.35s; }
+.audio-status { font-size: 0.6rem; font-weight: 800; letter-spacing: 0.15em; pointer-events: none; }
+.audio-status span { color: var(--gold); }
+
+@keyframes audio-pulse {
+  0% { height: 2px; }
+  100% { height: 12px; }
+}
+
 .nav-cta {
   padding: 0.65rem 1.6rem;
   border: 1px solid var(--gold);

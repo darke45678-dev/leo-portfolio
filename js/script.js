@@ -36,7 +36,50 @@ function initSplash() {
     setTimeout(() => {
       if (navbar) navbar.classList.add('nav-ready');
       revealHero();
+      // Start background music with fade in
+      startAudio();
     }, 400);
+  });
+}
+
+function startAudio() {
+  const audio = document.getElementById('bg-audio');
+  const btn = document.getElementById('audio-toggle');
+  if (!audio || !btn) return;
+
+  audio.volume = 0;
+  audio.play().catch(() => { console.log('Autoplay blocked by browser'); });
+
+  // Fade in volume to 0.6
+  let vol = 0;
+  const fadeIn = setInterval(() => {
+    if (vol < 0.6) {
+      vol += 0.03;
+      audio.volume = Math.min(vol, 0.6);
+    } else {
+      clearInterval(fadeIn);
+    }
+  }, 100);
+
+  btn.classList.add('playing');
+  btn.querySelector('.audio-status span').textContent = 'ON';
+}
+
+function initAudio() {
+  const audio = document.getElementById('bg-audio');
+  const btn = document.getElementById('audio-toggle');
+  if (!audio || !btn) return;
+
+  btn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
+      btn.classList.add('playing');
+      btn.querySelector('.audio-status span').textContent = 'ON';
+    } else {
+      audio.pause();
+      btn.classList.remove('playing');
+      btn.querySelector('.audio-status span').textContent = 'OFF';
+    }
   });
 }
 
@@ -210,6 +253,11 @@ const vNode = document.getElementById('modalVideo');
 
 function openModal() {
   if (!modal || !vNode) return;
+
+  // Pause bg music when video starts
+  const bgAudio = document.getElementById('bg-audio');
+  if (bgAudio) bgAudio.pause();
+
   modal.style.display = 'flex';
   requestAnimationFrame(() => {
     modal.style.opacity = '1';
@@ -227,6 +275,13 @@ function closeModal() {
     modal.style.display = 'none';
     vNode.pause();
     vNode.currentTime = 0;
+
+    // Resume bg music if audio toggle is on
+    const bgAudio = document.getElementById('bg-audio');
+    const audioBtn = document.getElementById('audio-toggle');
+    if (bgAudio && audioBtn && audioBtn.classList.contains('playing')) {
+      bgAudio.play();
+    }
   }, 300);
 }
 
@@ -404,4 +459,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initRevealAnimations();
   initMouseGlow();
   initEscHandler();
+  initAudio();
 });
