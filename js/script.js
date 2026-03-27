@@ -138,23 +138,24 @@ function initCursor() {
 
 // ── SMOOTH SCROLL (Lenis) ─────────────────────────────────────
 
+let lenis; // Global reference for control
+
 function initSmoothScroll() {
   if (typeof Lenis === 'undefined') return;
 
-  const lenis = new Lenis({
-    duration: 1.0,           // Slightly snappier (was 1.3)
+  lenis = new Lenis({
+    duration: 1.0,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     orientation: 'vertical',
     smoothWheel: true,
     wheelMultiplier: 1,
-    touchMultiplier: 1.5,    // Better mobile feel
+    touchMultiplier: 1.5,
   });
 
   // Single rAF loop — avoids double-running with GSAP ticker
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => lenis.raf(time * 1000));
-    // Note: do NOT call gsap.ticker.lagSmoothing(0) — causes frame jank
   } else {
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
@@ -254,6 +255,9 @@ const vNode = document.getElementById('modalVideo');
 function openModal() {
   if (!modal || !vNode) return;
 
+  // Stop Lenis to allow native modal scroll
+  if (lenis) lenis.stop();
+
   // Pause bg music when video starts
   const bgAudio = document.getElementById('bg-audio');
   if (bgAudio) bgAudio.pause();
@@ -275,6 +279,7 @@ function closeModal() {
     modal.style.display = 'none';
     vNode.pause();
     vNode.currentTime = 0;
+    if (lenis) lenis.start();
 
     // Resume bg music if audio toggle is on
     const bgAudio = document.getElementById('bg-audio');
@@ -294,6 +299,7 @@ function openTechModal(type) {
   const content   = document.getElementById('techModalContent');
   if (!techModal || !content) return;
 
+  if (lenis) lenis.stop();
   content.innerHTML = `
     <div style="text-align:center; margin-bottom:2rem;">
       <span style="color:var(--gold); font-weight:700; letter-spacing:2px; font-size:0.75rem;">${data.label}</span>
@@ -305,7 +311,7 @@ function openTechModal(type) {
   techModal.style.display = 'flex';
   requestAnimationFrame(() => {
     techModal.style.opacity = '1';
-    if (techModal.children[0]) techModal.children[0].style.transform = 'translateY(0)';
+    if (techModal.children[0]) techModal.children[0].style.transform = 'scale(1)';
   });
 }
 
@@ -314,77 +320,103 @@ function closeTechModal() {
   if (!techModal) return;
   techModal.style.opacity = '0';
   if (techModal.children[0]) techModal.children[0].style.transform = 'translateY(20px)';
-  setTimeout(() => { techModal.style.display = 'none'; }, 300);
+  setTimeout(() => {
+    techModal.style.display = 'none';
+    if (lenis) lenis.start();
+  }, 300);
 }
 
 // ── CHART DETAIL SUB-MODAL ───────────────────────────────────
 
+const chartDetailContent = `
+  <div style="text-align:center; margin-bottom:2rem;">
+    <h3 style="color:var(--gold); margin-bottom:0.25rem; font-size:1.1rem;">📊 訓練數據詳細報告</h3>
+    <p style="color:var(--muted); font-size:0.75rem; margin-bottom:1.5rem;">YOLOv11 V1–V6 完整訓練紀錄</p>
+    <div style="display:flex; gap:0.5rem; margin-bottom:1.5rem; flex-wrap:wrap; justify-content:center;">
+      <button class="chart-tab" id="btn-tab-conf"   onclick="switchTab('tab-conf')"
+              style="padding:0.4rem 1rem; border-radius:2rem; border:1px solid var(--gold);
+                     background:rgba(194,156,109,0.15); color:var(--gold); font-size:0.75rem; cursor:pointer;">混淆矩陣</button>
+      <button class="chart-tab" id="btn-tab-curves" onclick="switchTab('tab-curves')"
+              style="padding:0.4rem 1rem; border-radius:2rem; border:1px solid rgba(255,255,255,0.15);
+                     background:transparent; color:var(--muted); font-size:0.75rem; cursor:pointer;">訓練曲線</button>
+      <button class="chart-tab" id="btn-tab-table"  onclick="switchTab('tab-table')"
+              style="padding:0.4rem 1rem; border-radius:2rem; border:1px solid rgba(255,255,255,0.15);
+                     background:transparent; color:var(--muted); font-size:0.75rem; cursor:pointer;">V1–V6 對照表</button>
+    </div>
+
+    <!-- TAB: CONFUSION MATRICES -->
+    <div id="tab-conf">
+      <div style="background:rgba(194,156,109,0.05); padding:1rem; border:1px dashed rgba(194,156,109,0.3); border-radius:1rem; margin-bottom:1.5rem; text-align:left;">
+        <p style="font-size:0.75rem; color:#fff; line-height:1.6;">💡 <strong>快速導覽：</strong> 對角線（左上至右下）越清晰明亮，代表 AI 的精準度與判斷信心越高。請注意 V6 在關鍵指標 <strong>rotten_meat (腐肉)</strong> 已達到 1.00 的完美辨識率。</p>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+        <div style="text-align:center;"><p style="font-size:0.7rem;color:var(--gold);margin-bottom:0.4rem;">V3 混淆矩陣</p><img src="assets/images/v16.png" style="width:100%;border-radius:0.5rem;"></div>
+        <div style="text-align:center;"><p style="font-size:0.7rem;color:var(--gold);margin-bottom:0.4rem;">V4 混淆矩陣</p><img src="assets/images/v15.png" style="width:100%;border-radius:0.5rem;"></div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        <div style="text-align:center;"><p style="font-size:0.7rem;color:#22c55e;margin-bottom:0.4rem;">V6 混淆矩陣 (rotten_meat:1.00 ✓)</p><img src="assets/images/v14.png" style="width:100%;border-radius:0.5rem;border:1px solid #22c55e33;"></div>
+        <div style="text-align:center;"><p style="font-size:0.7rem;color:#22c55e;margin-bottom:0.4rem;">V6 計數混淆矩陣</p><img src="assets/images/v8.png" style="width:100%;border-radius:0.5rem;border:1px solid #22c55e33;"></div>
+      </div>
+    </div>
+
+    <!-- TAB: CURVES -->
+    <div id="tab-curves" style="display:none;">
+      <div style="background:rgba(37,99,235,0.05); padding:1rem; border:1px dashed rgba(37,99,235,0.3); border-radius:1rem; margin-bottom:1.5rem; text-align:left;">
+        <p style="font-size:0.75rem; color:#fff; line-height:1.6;">📈 <strong>學習趨勢：</strong> 隨著訓練輪數 (Epochs) 的增加，折線趨向平緩穩定的「深度水平」，這證明模型已完成深度學習且穩定收斂，能有效應對真實環境的判斷複雜性。</p>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+        <div style="text-align:center;"><p style="font-size:0.7rem;color:var(--gold);margin-bottom:0.4rem;">V3 訓練曲線 (50 Epochs)</p><img src="assets/images/v6.png" style="width:100%;border-radius:0.5rem;"></div>
+        <div style="text-align:center;"><p style="font-size:0.7rem;color:var(--gold);margin-bottom:0.4rem;">V4 訓練曲線 (70 Epochs)</p><img src="assets/images/v4.png" style="width:100%;border-radius:0.5rem;"></div>
+      </div>
+      <div style="text-align:center;"><p style="font-size:0.7rem;color:#22c55e;margin-bottom:0.4rem;">🏆 V6 訓練曲線 (300 Epochs)</p><img src="assets/images/v2.png" style="width:100%;border-radius:0.5rem;border:1px solid #22c55e33;"></div>
+    </div>
+
+    <!-- TAB: TABLE -->
+    <div id="tab-table" style="display:none;">
+      <div style="background:rgba(34,197,94,0.05); padding:1rem; border:1px dashed rgba(34,197,94,0.3); border-radius:1rem; margin-bottom:1.5rem; text-align:left;">
+        <p style="font-size:0.75rem; color:#fff; line-height:1.6;">📊 <strong>開發總結：</strong> 顏色由紅轉綠展示了各版本的進化。我們在大數據與深度訓練的加持下，從最初 0.75 的實驗水準提升至工業級的 0.868 mAP。</p>
+      </div>
+      <div style="overflow-x:auto;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.1);">
+        <table style="width:100%;border-collapse:collapse;font-size:0.75rem;text-align:left;">
+          <thead style="background:rgba(194,156,109,0.15);color:var(--gold);">
+            <tr><th style="padding:0.7rem;">版本</th><th style="padding:0.7rem;">訓練參數</th><th style="padding:0.7rem;">mAP@50</th><th style="padding:0.7rem;">重點</th></tr>
+          </thead>
+          <tbody style="color:rgba(255,255,255,0.78);">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#ef4444;font-weight:700;">V1</td><td style="padding:0.7rem;">50ep, 640px, YOLOv11n</td><td style="padding:0.7rem;">~0.75–0.80</td><td style="padding:0.7rem;">cabbage 0.33</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#f59e0b;font-weight:700;">V2</td><td style="padding:0.7rem;">50ep, 640px, YOLOv11n</td><td style="padding:0.7rem;">>0.85</td><td style="padding:0.7rem;">rotten_apple 0.98</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#f59e0b;font-weight:700;">V3</td><td style="padding:0.7rem;">50ep, 640px, YOLOv11n</td><td style="padding:0.7rem;">~0.85</td><td style="padding:0.7rem;">meat 1.00 / spinach 0.97</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#a78bfa;font-weight:700;">V4</td><td style="padding:0.7rem;">70ep, 960px, AdamW, YOLOv11s</td><td style="padding:0.7rem;">~0.88</td><td style="padding:0.7rem;">rotten_orange 0.93</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#60a5fa;font-weight:700;">V5</td><td style="padding:0.7rem;">300ep, 640px, YOLOv11n</td><td style="padding:0.7rem;">~0.86</td><td style="padding:0.7rem;">rotten_meat 1.00 初次</td></tr>
+            <tr style="background:rgba(34,197,94,0.06);font-weight:700;"><td style="padding:0.7rem;color:#22c55e;">V6 ✓</td><td style="padding:0.7rem;">300ep, 640px, YOLOv11m</td><td style="padding:0.7rem;color:#22c55e;">0.86–0.87</td><td style="padding:0.7rem;">rotten_meat 1.00 🏆</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+`;
+
 const chartModalHTML = `
-  <div id="chartDetailModal"
-       style="display:none; position:fixed; inset:0; z-index:11000;
-              background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
-              align-items:center; justify-content:center; padding:1rem;"
-       onclick="if(event.target===this)this.style.display='none'">
-    <div style="background:#0f0f15; border:1px solid rgba(255,255,255,0.1); border-radius:1.25rem;
-                max-width:900px; width:100%; max-height:90vh; overflow-y:auto; padding:2rem; position:relative;">
-      <button onclick="document.getElementById('chartDetailModal').style.display='none'"
-              style="position:sticky; top:0; float:right; background:rgba(255,255,255,0.08);
-                     border:none; color:#fff; width:2rem; height:2rem; border-radius:50%;
-                     cursor:pointer; font-size:1rem; line-height:1; margin-bottom:1rem;">✕</button>
-      <h3 style="color:var(--gold); margin-bottom:0.25rem; font-size:1.1rem;">📊 訓練數據詳細報告</h3>
-      <p style="color:var(--muted); font-size:0.75rem; margin-bottom:1.5rem;">YOLOv11 V1–V6 完整訓練紀錄</p>
-      <div style="display:flex; gap:0.5rem; margin-bottom:1.5rem; flex-wrap:wrap;">
-        <button class="chart-tab" id="btn-tab-conf"   onclick="switchTab('tab-conf')"
-                style="padding:0.4rem 1rem; border-radius:2rem; border:1px solid var(--gold);
-                       background:rgba(194,156,109,0.15); color:var(--gold); font-size:0.75rem; cursor:pointer;">混淆矩陣</button>
-        <button class="chart-tab" id="btn-tab-curves" onclick="switchTab('tab-curves')"
-                style="padding:0.4rem 1rem; border-radius:2rem; border:1px solid rgba(255,255,255,0.15);
-                       background:transparent; color:var(--muted); font-size:0.75rem; cursor:pointer;">訓練曲線</button>
-        <button class="chart-tab" id="btn-tab-table"  onclick="switchTab('tab-table')"
-                style="padding:0.4rem 1rem; border-radius:2rem; border:1px solid rgba(255,255,255,0.15);
-                       background:transparent; color:var(--muted); font-size:0.75rem; cursor:pointer;">V1–V6 對照表</button>
-      </div>
-      <div id="tab-conf">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-          <div style="text-align:center;"><p style="font-size:0.7rem;color:var(--gold);margin-bottom:0.4rem;">V3 混淆矩陣</p><img src="assets/images/v16.png" style="width:100%;border-radius:0.5rem;"></div>
-          <div style="text-align:center;"><p style="font-size:0.7rem;color:var(--gold);margin-bottom:0.4rem;">V4 混淆矩陣</p><img src="assets/images/v15.png" style="width:100%;border-radius:0.5rem;"></div>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-          <div style="text-align:center;"><p style="font-size:0.7rem;color:#22c55e;margin-bottom:0.4rem;">V6 混淆矩陣 (rotten_meat:1.00 ✓)</p><img src="assets/images/v14.png" style="width:100%;border-radius:0.5rem;border:1px solid #22c55e33;"></div>
-          <div style="text-align:center;"><p style="font-size:0.7rem;color:#22c55e;margin-bottom:0.4rem;">V6 計數混淆矩陣</p><img src="assets/images/v8.png" style="width:100%;border-radius:0.5rem;border:1px solid #22c55e33;"></div>
-        </div>
-      </div>
-      <div id="tab-curves" style="display:none;">
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
-          <div style="text-align:center;"><p style="font-size:0.7rem;color:var(--gold);margin-bottom:0.4rem;">V3 訓練曲線 (50 Epochs)</p><img src="assets/images/v6.png" style="width:100%;border-radius:0.5rem;"></div>
-          <div style="text-align:center;"><p style="font-size:0.7rem;color:var(--gold);margin-bottom:0.4rem;">V4 訓練曲線 (70 Epochs)</p><img src="assets/images/v4.png" style="width:100%;border-radius:0.5rem;"></div>
-        </div>
-        <div style="text-align:center;"><p style="font-size:0.7rem;color:#22c55e;margin-bottom:0.4rem;">🏆 V6 訓練曲線 (300 Epochs)</p><img src="assets/images/v2.png" style="width:100%;border-radius:0.5rem;border:1px solid #22c55e33;"></div>
-      </div>
-      <div id="tab-table" style="display:none;">
-        <div style="overflow-x:auto;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.1);">
-          <table style="width:100%;border-collapse:collapse;font-size:0.75rem;text-align:left;">
-            <thead style="background:rgba(194,156,109,0.15);color:var(--gold);">
-              <tr><th style="padding:0.7rem;">版本</th><th style="padding:0.7rem;">訓練參數</th><th style="padding:0.7rem;">mAP@50</th><th style="padding:0.7rem;">重點</th></tr>
-            </thead>
-            <tbody style="color:rgba(255,255,255,0.78);">
-              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#ef4444;font-weight:700;">V1</td><td style="padding:0.7rem;">50ep, 640px, YOLOv11n</td><td style="padding:0.7rem;">~0.75–0.80</td><td style="padding:0.7rem;">cabbage 0.33</td></tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#f59e0b;font-weight:700;">V2</td><td style="padding:0.7rem;">50ep, 640px, YOLOv11n</td><td style="padding:0.7rem;">>0.85</td><td style="padding:0.7rem;">rotten_apple 0.98</td></tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#f59e0b;font-weight:700;">V3</td><td style="padding:0.7rem;">50ep, 640px, YOLOv11n</td><td style="padding:0.7rem;">~0.85</td><td style="padding:0.7rem;">meat 1.00 / spinach 0.97</td></tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#a78bfa;font-weight:700;">V4</td><td style="padding:0.7rem;">70ep, 960px, AdamW, YOLOv11s</td><td style="padding:0.7rem;">~0.88</td><td style="padding:0.7rem;">rotten_orange 0.93</td></tr>
-              <tr style="border-bottom:1px solid rgba(255,255,255,0.05);"><td style="padding:0.7rem;color:#60a5fa;font-weight:700;">V5</td><td style="padding:0.7rem;">300ep, 640px, YOLOv11n</td><td style="padding:0.7rem;">~0.86</td><td style="padding:0.7rem;">rotten_meat 1.00 初次</td></tr>
-              <tr style="background:rgba(34,197,94,0.06);font-weight:700;"><td style="padding:0.7rem;color:#22c55e;">V6 ✓</td><td style="padding:0.7rem;">300ep, 640px, YOLOv11m</td><td style="padding:0.7rem;color:#22c55e;">0.86–0.87</td><td style="padding:0.7rem;">rotten_meat 1.00 🏆</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
+  <div id="chartDetailModal" class="modal-root" style="display:none; position:fixed; inset:0; z-index:21000; background:rgba(0,0,0,0.98); backdrop-filter:blur(30px); opacity:0; transition:opacity 0.3s ease; align-items:center; justify-content:center;">
+    <div data-lenis-prevent style="background:#0a0a0a; border:1px solid rgba(255,255,255,0.1); border-radius:2rem; width:95%; max-width:1200px; max-height:92vh; padding:3rem 2rem; position:relative; overflow-y:auto; transform:translateY(20px); transition:transform 0.3s ease;">
+      <button onclick="document.getElementById('chartDetailModal').style.display='none'; if(lenis) lenis.start();" style="position:absolute; top:1.5rem; right:1.5rem; background:none; border:1px solid rgba(255,255,255,0.2); color:white; border-radius:50%; width:40px; height:40px; cursor:pointer;">✕</button>
+      <div id="chartModalBody"></div>
     </div>
   </div>
 `;
 
 function openChartDetail() {
   const m = document.getElementById('chartDetailModal');
-  if (m) m.style.display = 'flex';
+  const body = document.getElementById('chartModalBody');
+  if (!m || !body) return;
+
+  if (lenis) lenis.stop();
+  body.innerHTML = chartDetailContent;
+  m.style.display = 'flex';
+  requestAnimationFrame(() => {
+    m.style.opacity = '1';
+    if (m.children[0]) m.children[0].style.transform = 'translateY(0)';
+  });
+  switchTab('tab-conf'); // Default to first tab
 }
 
 function switchTab(tabId) {
@@ -414,6 +446,7 @@ function switchTab(tabId) {
 function openVividModal() {
   const v = document.getElementById('vividModal');
   if (!v) return;
+  if (lenis) lenis.stop();
   v.style.display = 'flex';
   requestAnimationFrame(() => {
     v.style.opacity = '1';
@@ -426,7 +459,54 @@ function closeVividModal() {
   if (!v) return;
   v.style.opacity = '0';
   if (v.children[0]) v.children[0].style.transform = 'translateY(20px)';
-  setTimeout(() => { v.style.display = 'none'; }, 300);
+  setTimeout(() => {
+    v.style.display = 'none';
+    if (lenis) lenis.start();
+  }, 300);
+}
+
+// ── AUDIO SCORE MODAL ───────────────────────────────────────
+
+function openAudioScoreModal() {
+  const a = document.getElementById('audioScoreModal');
+  if (!a) return;
+  if (lenis) lenis.stop();
+  a.style.display = 'flex';
+  requestAnimationFrame(() => {
+    a.style.opacity = '1';
+    if (a.children[0]) a.children[0].style.transform = 'translateY(0)';
+  });
+}
+
+function closeAudioScoreModal() {
+  const a = document.getElementById('audioScoreModal');
+  if (!a) return;
+  a.style.opacity = '0';
+  if (a.children[0]) a.children[0].style.transform = 'translateY(20px)';
+  setTimeout(() => {
+    a.style.display = 'none';
+    if (lenis) lenis.start();
+  }, 300);
+}
+
+// ── PROMPT LAB MODAL ───────────────────────────────────────
+
+function openPromptLabModal() {
+  const p = document.getElementById('promptLabModal');
+  if (!p) return;
+  p.style.display = 'flex';
+  requestAnimationFrame(() => {
+    p.style.opacity = '1';
+    if (p.children[0]) p.children[0].style.transform = 'translateY(0)';
+  });
+}
+
+function closePromptLabModal() {
+  const p = document.getElementById('promptLabModal');
+  if (!p) return;
+  p.style.opacity = '0';
+  if (p.children[0]) p.children[0].style.transform = 'translateY(20px)';
+  setTimeout(() => { p.style.display = 'none'; }, 300);
 }
 
 // ── GLOBAL ESC HANDLER ───────────────────────────────────────
@@ -437,6 +517,8 @@ function initEscHandler() {
     closeModal();
     closeTechModal();
     closeVividModal();
+    closeAudioScoreModal();
+    closePromptLabModal();
     const chartModal = document.getElementById('chartDetailModal');
     if (chartModal) chartModal.style.display = 'none';
   });
