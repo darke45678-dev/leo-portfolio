@@ -777,21 +777,21 @@
         <h2 style="font-size: 2.2rem; margin-top: 0.5rem; color: #fff;">原創配樂創作流程</h2>
       </div>
 
-      <!-- TRACK 01: GLOBAL SCORE (網頁全局背景音樂) -->
-      <div
-        style="margin-bottom: 2rem; background: rgba(37,99,235,0.04); border: 1px solid rgba(37,99,235,0.2); border-radius: 1.5rem; padding: 2rem; display: flex; align-items: center; gap: 2rem; transition: all 0.4s ease;">
-        <div class="playing-visualizer" id="viz-track1" style="flex-shrink:0;">
+      <!-- TRACK 01: GLOBAL SCORE (網頁全局背景音樂 - 即刻連動) -->
+      <div id="card-track1"
+        style="margin-bottom: 2rem; background: rgba(37,99,235,0.06); border: 1px solid rgba(37,99,235,0.3); border-radius: 1.5rem; padding: 2.5rem 2rem; display: flex; align-items: center; gap: 2rem; transition: all 0.4s ease; box-shadow: 0 0 30px rgba(37, 99, 235, 0.05);">
+        <div class="playing-visualizer active-by-default" id="viz-track1" style="flex-shrink:0;">
           <span></span><span></span><span></span><span></span>
         </div>
         <div style="flex: 1;">
-          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 0.5rem;">
-            <h4 style="color: #fff; margin: 0; font-size: 1rem; font-weight: 700;">Track 01: 〈INSTRUMENTAL PROTOTYPE 1.0〉</h4>
-            <span style="font-size: 0.6rem; color: var(--blue); border: 1px solid var(--blue); padding: 0.2rem 0.6rem; border-radius: 2rem; letter-spacing:1px; font-weight:700;">GLOBAL THEME</span>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 0.8rem;">
+            <div>
+              <h4 style="color: #fff; margin: 0; font-size: 1.1rem; font-weight: 700;">Track 01: 〈INSTRUMENTAL PROTOTYPE 1.0〉</h4>
+              <p style="color: var(--blue); font-size: 0.75rem; font-weight: 700; margin-top: 0.3rem; letter-spacing: 1px;">NOW PLAYING: GLOBAL ATMOSPHERE</p>
+            </div>
+            <span style="font-size: 0.6rem; color: #fff; background: var(--blue); padding: 0.25rem 0.75rem; border-radius: 2rem; letter-spacing:1px; font-weight:900; box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);">LIVE</span>
           </div>
-          <p style="color: var(--muted); font-size: 0.8rem; line-height:1.6; margin: 0 0 1.2rem;">本系統主基調背景音樂。採用低頻環境音與 Cyberpunk 元素交織而成，展示跨平台的高保真沉浸感。</p>
-          <audio id="scorePlayer1" controls style="width: 100%; height: 32px; border-radius: 16px; outline: none; background: #000;">
-            <source src="assets/audio/INSTRUMENT.mp3" type="audio/mpeg">
-          </audio>
+          <p style="color: var(--muted); font-size: 0.85rem; line-height:1.7; margin: 0;">此曲目為本站官方背景音樂。透過節奏與光影的動態捕捉，展現 Cyberpunk 與智慧家庭技術融合的聲景特質。當您暫停全站音訊或切換至其他音軌時，此處會同步進入靜止狀態。</p>
         </div>
       </div>
 

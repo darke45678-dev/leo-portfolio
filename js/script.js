@@ -92,19 +92,17 @@ function initAudio() {
 
   // ── 同步邏輯：當任何 Demo 音訊/影片播放時，關閉背景配樂並啟動對應波形 ──
   const demoPlayers = {
-    'scorePlayer1': 'viz-track1',
     'scorePlayer2': 'viz-track2'
   };
 
   window.addEventListener('play', (e) => {
-    // 1. 如果播放的是背景音樂本身，不需要額外邏輯
+    // 1. 背景音樂狀態連動：控制 viz-track1
     if (e.target === audio) {
-      // 播放背景時，關閉所有其他波形
-      document.querySelectorAll('.playing-visualizer').forEach(v => v.classList.remove('active'));
+      document.getElementById('viz-track1')?.classList.add('active');
       return;
     }
 
-    // 2. 如果播放的是任何音頻/影片，則暫停背景音樂
+    // 2. 如果播放的是任何音頻/影片（且不是背景音樂），則暫停背景音樂
     if (e.target.tagName === 'AUDIO' || e.target.tagName === 'VIDEO') {
       if (!audio.paused) {
         audio.pause();
@@ -112,7 +110,7 @@ function initAudio() {
         btn.querySelector('.audio-status span').textContent = 'OFF';
       }
 
-      // 3. 互斥播放：暫停所有「其他」音頻 (除了現在播放的這個)
+      // 3. 互斥播放：暫停所有「其他」音頻
       document.querySelectorAll('audio, video').forEach(other => {
         if (other !== e.target && other !== audio) {
           other.pause();
@@ -120,15 +118,22 @@ function initAudio() {
         }
       });
 
-      // 4.啟動對應波形動畫
-      document.querySelectorAll('.playing-visualizer').forEach(v => v.classList.remove('active'));
+      // 4. 啟動對應波效 (針對 Track 02 或影片)
+      document.querySelectorAll('.playing-visualizer').forEach(v => {
+        if (v.id !== 'viz-track1') v.classList.remove('active');
+      });
       const vizId = demoPlayers[e.target.id];
       if (vizId) document.getElementById(vizId)?.classList.add('active');
     }
   }, true);
 
-  // 當音軌暫停或結束時，清除波形動畫
+  // 當背景音樂暫停時，Track 01 的波形也要暫停
+  audio.addEventListener('pause', () => {
+    document.getElementById('viz-track1')?.classList.remove('active');
+  });
+
   window.addEventListener('pause', (e) => {
+    if (e.target === audio) return; // 已有獨立監聽
     const vizId = demoPlayers[e.target.id];
     if (vizId) document.getElementById(vizId)?.classList.remove('active');
   }, true);
@@ -562,6 +567,16 @@ function openAudioScoreModal() {
   const a = document.getElementById('audioScoreModal');
   if (!a) return;
   if (lenis) lenis.stop();
+  
+  // 打開彈窗時，檢查背景音樂是否正在播放，若是則啟動 Track 01 的波形
+  const bgAudio = document.getElementById('bg-audio');
+  const viz1 = document.getElementById('viz-track1');
+  if (bgAudio && !bgAudio.paused) {
+    viz1?.classList.add('active');
+  } else {
+    viz1?.classList.remove('active');
+  }
+
   a.style.display = 'flex';
   requestAnimationFrame(() => {
     a.style.opacity = '1';
@@ -573,15 +588,15 @@ function closeAudioScoreModal() {
   const a = document.getElementById('audioScoreModal');
   if (!a) return;
 
-  // 關閉時停止所有配樂播放器並清除動畫
-  ['scorePlayer1', 'scorePlayer2'].forEach(pid => {
-    const p = document.getElementById(pid);
-    if (p) {
-      p.pause();
-      p.currentTime = 0;
-    }
-  });
-  document.querySelectorAll('.playing-visualizer').forEach(v => v.classList.remove('active'));
+  // 關閉時停止 Track 2 (背景音樂不需要停，因為是全局的)
+  const p2 = document.getElementById('scorePlayer2');
+  if (p2) {
+    p2.pause();
+    p2.currentTime = 0;
+  }
+  
+  // 清除 Track 2 的動畫 (Track 1 的動畫會根據背景音樂狀態決定是否清除)
+  document.getElementById('viz-track2')?.classList.remove('active');
 
   a.style.opacity = '0';
   if (a.children[0]) a.children[0].style.transform = 'translateY(20px)';
