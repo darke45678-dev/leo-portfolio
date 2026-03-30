@@ -66,24 +66,46 @@
       /* 1. 隱藏自定義游標（那個幽靈圓點的真身！）*/
       #cursor-dot, #cursor-outline { display: none !important; }
 
-      /* 2. Splash Portal — 手機改為單核直向佈局 */
-      /* 衛星核心隱藏，手機直向無空間展示 */
-      .core-satellite-img { display: none !important; }
-      /* 主核充滿直向螢幕，利用高度創造震撼感 */
-      .core-titan-img {
-        width: 90vw !important;
-        height: 90vw !important;
-        opacity: 0.15 !important;
-      }
-      /* 重置 splash-bg-element 為置中全屏 */
+      /* 2. Splash Portal — 手機：三核對角線排列 (方案 A) */
+      /* 容器改為相對定位，讓子元素可以獨立定位 */
       .splash-bg-element {
         transform: none !important;
         position: absolute !important;
         inset: 0 !important;
         overflow: visible !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
+        display: block !important;  /* 改為 block，讓子元素絕對定位 */
+      }
+      /* 主核：正中央，大而震撼 */
+      .core-titan-img {
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 65vw !important;
+        height: 65vw !important;
+        opacity: 0.12 !important;
+      }
+      /* 左衛星：左上角，小巧 */
+      .core-satellite-img.left {
+        display: block !important;
+        position: absolute !important;
+        top: 5% !important;
+        left: -5% !important;
+        width: 35vw !important;
+        height: 35vw !important;
+        opacity: 0.06 !important;
+        transform: translateY(0) !important;  /* 清除原本的 translateY(-50%) */
+      }
+      /* 右衛星：右下角，稍小 */
+      .core-satellite-img.right {
+        display: block !important;
+        position: absolute !important;
+        bottom: 5% !important;
+        right: -5% !important;
+        width: 30vw !important;
+        height: 30vw !important;
+        opacity: 0.05 !important;
+        transform: translateY(0) !important;
       }
       .splash-title { font-size: 2.2rem !important; }
 

@@ -1988,24 +1988,8 @@ audio:not([controls]) {
     width: 80vw !important;
     height: 80vw !important;
   }
-  /* 衛星核心隱藏（手機直向放不下） */
-  .core-satellite-img { display: none !important; }
-  /* 讓入口背景容器置中且不裁切 */
-  .splash-bg-element {
-    overflow: visible !important;
-    position: absolute !important;
-    inset: 0 !important;
-    transform: none !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  /* 主核以 vw 單位填滿直向螢幕 */
-  .core-titan-img {
-    width: 90vw !important;
-    height: 90vw !important;
-    opacity: 0.15 !important;
-  }
+  /* 衛星核心顯示由 index.html 的 media query 控制（方案A對角線排列） */
+  /* splash-bg-element 定位由 index.html style 控制 */
 
   /* 核心格線改為單欄並優化間距 */
   .tech-grid, .problem-grid, .persona-grid {
