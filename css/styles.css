@@ -95,6 +95,32 @@ body.cursor-hover #cursor-outline {
   justify-content: center;
 }
 
+.splash-bg-element {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.core-titan-img {
+  width: 70vh;
+  height: 70vh;
+  object-fit: contain;
+  opacity: 0.08; /* 微弱但具備細緻結構的高清幻影 */
+  filter: brightness(1.2) contrast(1.1); /* 保留原始的琥珀金質感 */
+  animation: titan-float 35s linear infinite; /* 旋轉更緩慢，更有厚度感 */
+}
+
+@keyframes titan-float {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.08); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
 .splash-bg {
   position: absolute;
   inset: 0;
