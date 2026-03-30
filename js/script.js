@@ -42,6 +42,21 @@ function initSplash() {
     const bootBar = document.getElementById('boot-bar');
     const bootStatus = document.getElementById('boot-status');
 
+    // 【方案 1 & 2】滑鼠視差位移 (Mouse Parallax) 與 數位毛刺
+    splash.addEventListener('mousemove', (e) => {
+      const { clientX, clientY } = e;
+      const x = (clientX - window.innerWidth / 2);
+      const y = (clientY - window.innerHeight / 2);
+
+      const titan = splash.querySelector('.core-titan-img');
+      const satLeft = splash.querySelector('.core-satellite-img.left');
+      const satRight = splash.querySelector('.core-satellite-img.right');
+
+      if (titan) titan.style.transform = `translate(${x/110}px, ${y/110}px) rotate(0deg)`;
+      if (satLeft) satLeft.style.transform = `translate(${x/25}px, ${y/25}px) rotate(-15deg)`;
+      if (satRight) satRight.style.transform = `translate(${x/15}px, ${y/15}px) rotate(15deg) scale(0.95)`;
+    });
+
     // 建立編譯式的 GSAP Timeline
     const tl = gsap.timeline();
 

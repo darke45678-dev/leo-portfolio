@@ -106,6 +106,10 @@ body.cursor-hover #cursor-outline {
   overflow: hidden;
 }
 
+.core-titan-img, .core-satellite-img {
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1); /* 讓滑鼠位移平滑順暢 */
+}
+
 .core-titan-img {
   width: 85vh;
   height: 85vh;
@@ -114,6 +118,22 @@ body.cursor-hover #cursor-outline {
   filter: brightness(1.3) contrast(1.1);
   animation: titan-float 45s linear infinite;
   z-index: 2;
+}
+
+/* 按鈕懸停時，觸發核心的全像干擾 (Glitch Feedback) */
+.splash-btn:hover ~ .splash-bg-element .core-titan-img,
+.splash-btn:hover ~ .splash-bg-element .core-satellite-img {
+  animation: glitch-pulse 0.25s infinite cubic-bezier(0.2, 0, 0, 1.2);
+  filter: brightness(2.5) contrast(1.5) hue-rotate(15deg);
+  opacity: 0.25 !important;
+}
+
+@keyframes glitch-pulse {
+  0% { transform: translate(0, 0) skew(0deg); }
+  25% { transform: translate(-2px, 1px) skew(2deg); }
+  50% { transform: translate(3px, -2px) skew(-3deg); }
+  75% { transform: translate(-4px, -1px) skew(1deg); }
+  100% { transform: translate(0, 0) skew(0deg); }
 }
 
 .core-satellite-img {
