@@ -27,33 +27,80 @@ function initSplash() {
     document.body.classList.add('is-loading');
   }
 
-  // 2. 進入系統邏輯 (乾淨俐落的純粹動畫，避免瀏覽器濾鏡崩潰)
+  // 2. 進入系統邏輯 (儀式感極致提升版：數位核心初始化)
   enterBtn.addEventListener('click', () => {
-    // 讓頁面確保在頂部，並且防止點擊重複觸發
+    // 預防重複觸發
     enterBtn.style.pointerEvents = 'none';
     splash.style.pointerEvents = 'none';
 
     window.scrollTo(0, 0);
     if (typeof lenis !== 'undefined') lenis.scrollTo(0, { immediate: true });
 
-    // 透過 GSAP 進行高級快節奏的退場轉場
-    gsap.to(splash, {
-      opacity: 0,
-      scale: 1.15,        // 衝刺放大感更強烈
-      duration: 0.45,     // 縮短時間，拔除「殘留感」
-      ease: "power2.in",  // 加速退場
-      onComplete: () => {
-        // 【核心修正】第一時間藏起引導頁，並解除滾動鎖定
-        splash.style.display = 'none';
-        document.body.classList.remove('is-loading');
-        if (typeof lenis !== 'undefined') lenis.start();
+    // 取得銜接層元件
+    const splashInner = splash.querySelector('.splash-inner');
+    const bootLayer = document.getElementById('splash-boot');
+    const bootBar = document.getElementById('boot-bar');
+    const bootStatus = document.getElementById('boot-status');
 
-        // 等引導頁「完全消失」後，再啟動主畫面動畫，杜絕前後畫面重疊造成的閃爍或殘留感
+    // 建立編譯式的 GSAP Timeline
+    const tl = gsap.timeline();
+
+    // 階段 A：消逝引導頁 (Splash UI Fade out)
+    tl.to(splashInner, {
+      opacity: 0,
+      scale: 1.1,
+      duration: 0.6,
+      ease: "power3.inOut"
+    });
+
+    // 階段 B：展現系統初始化 UI (Boot Layer Reveal)
+    tl.to(bootLayer, {
+      display: 'flex',
+      opacity: 1,
+      duration: 0.4,
+      onStart: () => {
+         // 在此階段背景絕對保持靜音
+      }
+    });
+
+    // 階段 C：數據解密動畫 (The Boot Sequence)
+    // 讓 Bar 從 0% 快掃至 100%
+    tl.to(bootBar, {
+      width: '100%',
+      duration: 1.2,
+      ease: "power4.inOut",
+      onStart: () => {
+        // 動態更換狀態文字，營造科技感
+        const statuses = ['SYNCHRONIZING...', 'LINKING NEURAL SWARM...', 'ACCESS GRANTED'];
+        let idx = 0;
+        const statusInt = setInterval(() => {
+           if (idx < statuses.length) {
+             bootStatus.textContent = statuses[idx++];
+           } else {
+             clearInterval(statusInt);
+           }
+        }, 400);
+      }
+    });
+
+    // 階段 D：大功告成，撤退並點亮主畫面
+    tl.to(splash, {
+      opacity: 0,
+      duration: 0.7,
+      ease: "power2.inOut",
+      onStart: () => {
+         // 同步移除 is-loading 排版鎖定，這時主畫面已經完全排布完畢，零閃動！
+         document.body.classList.remove('is-loading');
+         if (typeof lenis !== 'undefined') lenis.start();
+      },
+      onComplete: () => {
+        splash.style.display = 'none';
+        
+        // 【覺悟時刻】微動畫結束，音樂才在此時震撼登場！
         if (navbar) navbar.classList.add('nav-ready');
         revealHero();
-        startAudio();
+        startAudio(); // 音樂在此刻與內容同步解封
 
-        // 確保 DOM 渲染穩定後釋放記憶體
         setTimeout(() => splash.remove(), 100);
       }
     });

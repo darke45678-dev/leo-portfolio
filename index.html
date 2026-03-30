@@ -53,6 +53,18 @@
       </button>
       <div class="splash-hint">ENTER EXPERIENCE</div>
     </div>
+
+    <!-- 儀式感銜接層：系統初始化動畫 (The Boot Sequence) -->
+    <div id="splash-boot" style="
+      display: none; position: absolute; inset: 0; z-index: 10;
+      flex-direction: column; align-items: center; justify-content: center;
+      background: #030303; opacity: 0;
+    ">
+      <div style="width: 240px; height: 1px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden; margin-bottom: 1.5rem;">
+        <div id="boot-bar" style="width: 0%; height: 100%; background: var(--gold); position: absolute; left: 0; top: 0; box-shadow: 0 0 15px var(--gold);"></div>
+      </div>
+      <div id="boot-status" style="font-family: 'Outfit', sans-serif; font-size: 0.65rem; color: var(--gold); letter-spacing: 0.2em; opacity: 0.8; font-weight: 800;">DECRYPTING CORE...</div>
+    </div>
   </div>
 
   <!-- 動態背景層：包含星光粒子與背景閃爍的光團 (Aura Blobs) -->
