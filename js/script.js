@@ -377,7 +377,7 @@ function revealHero() {
   });
 }
 
-// ── 自定義鼠標行為 — 六角冒晶游標系統 ─────────────────
+// ── 自定義鼠標行為 — 六角冰晶游標系統 ──────────────────────────────────────
 
 function initCursor() {
   const dot     = document.getElementById('cursor-dot');
@@ -388,21 +388,20 @@ function initCursor() {
   let mouseX = 0, mouseY = 0;
   let firstMove = true;
 
+  // ── 快取尺寸（避免 offsetWidth 觸發 reflow）──
+  let dotHalf  = 5;   // 10px / 2
+  let wrapHalf = 22;  // 44px（SVG）/ 2
+
   // 初始隱藏
   dot.style.opacity  = '0';
   wrap.style.opacity = '0';
 
-  // ── 兩者同步精準跟隨（零延遲）──
+  // ── 兩者同步精準跟隨（零延遲，無 reflow）──
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-
-    const dotHalf  = dot.offsetWidth / 2;
-    const wrapHalf = (outline ? outline.offsetWidth : 32) / 2;  // 讀內層尺寸
-
     dot.style.transform  = `translate(${mouseX - dotHalf}px, ${mouseY - dotHalf}px)`;
     wrap.style.transform = `translate(${mouseX - wrapHalf}px, ${mouseY - wrapHalf}px)`;
-
     if (firstMove) {
       firstMove = false;
       dot.style.opacity  = '1';
@@ -410,33 +409,59 @@ function initCursor() {
     }
   });
 
-
-  // ── 按鈕懸停：鎖定效果 ──
+  // ── 按鈕懸停：鎖定 + 更新尺寸快取 ──
   document.querySelectorAll('button, a, .tech-card, .problem-card, [onclick]').forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    el.addEventListener('mouseenter', () => {
+      document.body.classList.add('cursor-hover');
+      wrapHalf = 35;  // hover 時 scale:1.6 × 44px = ~70px，半就是 35
+    });
+    el.addEventListener('mouseleave', () => {
+      document.body.classList.remove('cursor-hover');
+      wrapHalf = 22;  // 恢復 44px / 2
+    });
   });
 
-  // ── 點擊：冰晶爆裂特效 ──
+  // ── 點擊序列：dot+outline 先消失 → 80ms 後爆裂 → 動畫結束後恢復 ──
+  // 不用 mouseup 控制恢復（快速點擊時 mouseup 在爆裂前就觸發），
+  // 改用定時器確保動畫永遠跑完才恢復，快點/長按行為完全一致。
+  let restoreCursorTimer = null;
+
   window.addEventListener('mousedown', (e) => {
+    // 若上次動畫尚未結束，清除舊恢復計時器
+    clearTimeout(restoreCursorTimer);
+
     document.body.classList.add('cursor-clicking');
-    spawnCursorBurst(e.clientX, e.clientY);
+
+    // 80ms 後發動爆裂（等待 dot+outline 消失動畫跑完）
+    setTimeout(() => {
+      spawnCrystalBurst(e.clientX, e.clientY);
+    }, 80);
+
+    // 爆裂動畫總時長：80ms 延遲 + 620ms 碎片飛行 = 700ms
+    restoreCursorTimer = setTimeout(() => {
+      document.body.classList.remove('cursor-clicking');
+    }, 700);
   });
+
+  // mouseup 只作保險：若快速連按導致計時器消失，至少 200ms 後恢復
   window.addEventListener('mouseup', () => {
-    document.body.classList.remove('cursor-clicking');
+    if (!restoreCursorTimer) {
+      setTimeout(() => document.body.classList.remove('cursor-clicking'), 200);
+    }
   });
 }
 
-// ── 冰晶爆裂：6 條碎片以 60° 間距放射 ──────────────────────────────────
+// ── 點擊爆裂：準星 + 六角同時炸開 ──────────────────────────────────────────
+
 function spawnCrystalBurst(x, y) {
-  // 六角爆裂環
+  // 六角形擴散環
   const ring = document.createElement('div');
   ring.className = 'crystal-burst-ring';
   ring.style.cssText = `left:${x}px; top:${y}px; width:40px; height:40px;`;
   document.body.appendChild(ring);
   setTimeout(() => ring.remove(), 550);
 
-  // 6 條冰晶碎片（60° 間距）
+  // 6 根水晶碎片，60度均勻分佈
   const colors = ['rgba(168,216,255,0.9)', 'rgba(200,230,255,0.7)', 'rgba(194,156,109,0.8)'];
   for (let i = 0; i < 6; i++) {
     const angle  = i * 60;

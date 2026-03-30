@@ -165,10 +165,25 @@
 
 <body class="is-loading">
 
-  <!-- 自定義游標：跟隨滑鼠移動的圓點與外圈效果 -->
+  <!-- 自定義游標：精密六角刻度盤游標系統 -->
   <div id="cursor-dot"></div>
   <div id="cursor-outline-wrap"><!-- JS 控制定位 -->
-    <div id="cursor-outline"></div><!-- CSS 控制旋轉 -->
+    <!-- SVG六角形 + 6個頂點刻度線 (方案E混合風格) -->
+    <svg id="cursor-outline" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
+      <!-- 六角主框 -->
+      <polygon id="cursor-hex-ring"
+        points="0,-15 12.99,-7.5 12.99,7.5 0,15 -12.99,7.5 -12.99,-7.5"
+        fill="none" stroke="rgba(194,156,109,0.55)" stroke-width="1.5"/>
+      <!-- 6個頂點刻度線 -->
+      <g id="cursor-hex-ticks" stroke="rgba(194,156,109,0.9)" stroke-width="1.5" stroke-linecap="round">
+        <line x1="0"      y1="-15"  x2="0"      y2="-20"/>   <!-- 上 -->
+        <line x1="12.99"  y1="-7.5" x2="17.32"  y2="-10"/>   <!-- 右上 -->
+        <line x1="12.99"  y1="7.5"  x2="17.32"  y2="10"/>    <!-- 右下 -->
+        <line x1="0"      y1="15"   x2="0"      y2="20"/>    <!-- 下 -->
+        <line x1="-12.99" y1="7.5"  x2="-17.32" y2="10"/>   <!-- 左下 -->
+        <line x1="-12.99" y1="-7.5" x2="-17.32" y2="-10"/>  <!-- 左上 -->
+      </g>
+    </svg>
   </div>
 
   <!-- ═══════════════════════════════════════════════

@@ -96,28 +96,36 @@ body.cursor-clicking #cursor-dot {
      0  4px 0 rgba(168,216,255,0.7);
 }
 
-/* 六角外框外層：JS 定位用（不帶任何視覺樣式）*/
+/* 六角外框外層：JS 定位用（固定 44px 承接 SVG）*/
 #cursor-outline-wrap {
   position: fixed;
   left: 0; top: 0;
+  width: 44px;
+  height: 44px;
   pointer-events: none;
   z-index: 99998;
   will-change: transform;       /* GPU 合成層 */
 }
 
-/* 六角外框內層：視覺樣式 + 旋轉動畫（與定位完全分離）*/
+/* 六角 SVG：精密刻度盤外框 */
 #cursor-outline {
-  width: 32px;
-  height: 32px;
-  background: transparent;
-  border: 1.5px solid rgba(194, 156, 109, 0.55);
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  transition: width 0.35s var(--ease), height 0.35s var(--ease),
-              border-color 0.3s, background 0.3s, opacity 0.3s, border-width 0.3s;
-  /* clip-path 在旋轉時需要 overflow:visible */
+  width: 44px;
+  height: 44px;
+  display: block;
+  overflow: visible;
+  transition: scale 0.35s var(--ease), opacity 0.15s;
+  animation: hex-lock-spin 12s linear infinite;  /* 平常慢速恆轉 */
 }
 
-/* 按鈕懸停：六角鎖定態 + 旋轉（安全！與 transform 在不同元素上）*/
+/* SVG 子元素：平常狀態 */
+#cursor-hex-ring {
+  transition: stroke 0.3s, stroke-width 0.3s;
+}
+#cursor-hex-ticks line {
+  transition: stroke 0.3s;
+}
+
+/* 按鈕懸停：刻度變亮 + 整體放大 + 旋轉加速 */
 body.cursor-hover #cursor-dot {
   width: 4px;
   height: 4px;
@@ -125,25 +133,31 @@ body.cursor-hover #cursor-dot {
   box-shadow: none;
 }
 body.cursor-hover #cursor-outline {
-  width: 50px;
-  height: 50px;
-  border-color: var(--gold);
-  border-width: 2px;
-  background: rgba(194, 156, 109, 0.07);
-  box-shadow: 0 0 12px rgba(194, 156, 109, 0.35), inset 0 0 8px rgba(194, 156, 109, 0.1);
-  animation: hex-lock-spin 3s linear infinite;  /* 安全旋轉！*/
+  scale: 1.6;
+  animation: hex-lock-spin 3s linear infinite;
+}
+body.cursor-hover #cursor-hex-ring {
+  stroke: var(--gold);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 4px rgba(194,156,109,0.6));
+}
+body.cursor-hover #cursor-hex-ticks line {
+  stroke: var(--gold);
 }
 
-/* 滑鼠按下：六角壓縮（內層元素的尺寸變化）*/
+/* ── 點擊序列：dot + outline 先消失，讓水晶爆裂獨佔舞台 ── */
+body.cursor-clicking #cursor-dot {
+  opacity: 0 !important;
+  scale: 0;
+  transition: scale 0.08s ease-in, opacity 0.08s ease-in;
+}
 body.cursor-clicking #cursor-outline {
-  width: 22px;
-  height: 22px;
-  border-color: #a8d8ff;
-  background: rgba(168, 216, 255, 0.12);
-  transition: width 0.08s, height 0.08s;
+  opacity: 0;
+  scale: 0;
+  transition: scale 0.08s ease-in, opacity 0.08s ease-in;
 }
 
-/* 六角旋轉動畫（用獨立 rotate 屬性）*/
+/* 六角旋轉動畫（用獨立 rotate 屬性，不干擾 JS transform 定位）*/
 @keyframes hex-lock-spin {
   0%   { rotate: 0deg; }
   100% { rotate: 360deg; }
@@ -160,9 +174,10 @@ body.cursor-clicking #cursor-outline {
   animation: shard-fly 0.55s cubic-bezier(0.2, 0.8, 0.4, 1) forwards;
 }
 @keyframes shard-fly {
-  0%   { height: 0px;   opacity: 0.9; }
-  60%  { height: 22px;  opacity: 0.7; }
-  100% { height: 18px;  opacity: 0;   }
+  0%   { height: 0px;   opacity: 0;   }   /* 從游標原點出現 */
+  12%  { height: 8px;   opacity: 1;   }   /* 快速亮起（凝聚瞬間） */
+  55%  { height: 26px;  opacity: 0.85; }  /* 飛至最遠（爆裂頂點） */
+  100% { height: 16px;  opacity: 0;   }   /* 淡出收尾 */
 }
 .crystal-burst-ring {
   position: fixed;
