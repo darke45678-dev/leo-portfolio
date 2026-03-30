@@ -377,49 +377,38 @@ function revealHero() {
   });
 }
 
-// ── 自定義鼠標行為 — 六角冰晶游標系統 ─────────────────────────────────
+// ── 自定義鼠標行為 — 六角冒晶游標系統 ─────────────────
 
 function initCursor() {
   const dot     = document.getElementById('cursor-dot');
   const outline = document.getElementById('cursor-outline');
   if (!dot || !outline) return;
 
-  // ── 座標狀態 ──
   let mouseX = 0, mouseY = 0;
-  let hexX = 0, hexY = 0;
-  let hasMouseMoved = false;
+  let firstMove = true;
 
-  // 初始隱藏（防止從左上角飛入）
+  // 初始隱藏
   dot.style.opacity = '0';
   outline.style.opacity = '0';
 
-  // ── 核心點：零延遲精準跟隨（GPU transform）──
+  // ── 兩者同步精準跟隨（零延遲）──
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    dot.style.transform = `translate(${mouseX - 5}px, ${mouseY - 5}px)`;
 
-    if (!hasMouseMoved) {
-      // 首次移動：直接傳送，不用 lerp 飛過來
-      hexX = mouseX;
-      hexY = mouseY;
-      hasMouseMoved = true;
-      dot.style.opacity = '1';
+    const dotHalf     = dot.offsetWidth / 2;
+    const outlineHalf = outline.offsetWidth / 2;
+
+    dot.style.transform     = `translate(${mouseX - dotHalf}px, ${mouseY - dotHalf}px)`;
+    outline.style.transform = `translate(${mouseX - outlineHalf}px, ${mouseY - outlineHalf}px)`;
+
+    if (firstMove) {
+      firstMove = false;
+      dot.style.opacity     = '1';
       outline.style.opacity = '1';
     }
   });
 
-  // ── 六角框：lerp 平滑延遲跟隨（GPU transform）──
-  (function animateHex() {
-    if (hasMouseMoved) {
-      hexX += (mouseX - hexX) * 0.18;
-      hexY += (mouseY - hexY) * 0.18;
-      // 動態計算中心偏移（半寬），適應 hover 時的尺寸變化
-      const half = outline.offsetWidth / 2;
-      outline.style.transform = `translate(${hexX - half}px, ${hexY - half}px)`;
-    }
-    requestAnimationFrame(animateHex);
-  })();
 
   // ── 按鈕懸停：鎖定效果 ──
   document.querySelectorAll('button, a, .tech-card, .problem-card, [onclick]').forEach(el => {
@@ -430,7 +419,7 @@ function initCursor() {
   // ── 點擊：冰晶爆裂特效 ──
   window.addEventListener('mousedown', (e) => {
     document.body.classList.add('cursor-clicking');
-    spawnCrystalBurst(e.clientX, e.clientY);
+    spawnCursorBurst(e.clientX, e.clientY);
   });
   window.addEventListener('mouseup', () => {
     document.body.classList.remove('cursor-clicking');
