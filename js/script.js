@@ -42,20 +42,45 @@ function initSplash() {
     const bootBar = document.getElementById('boot-bar');
     const bootStatus = document.getElementById('boot-status');
 
-    // 【方案 1 & 2】滑鼠視差位移 (Mouse Parallax) 與 數位毛刺
-    splash.addEventListener('mousemove', (e) => {
-      const { clientX, clientY } = e;
-      const x = (clientX - window.innerWidth / 2);
-      const y = (clientY - window.innerHeight / 2);
+    // ── 冰晶視差系統 (Lerp + CSS translate，不干擾旋轉動畫) ──
+    let pMouseX = 0, pMouseY = 0;
+    let titanTX = 0, titanTY = 0;
+    let satLTX  = 0, satLTY  = 0;
+    let satRTX  = 0, satRTY  = 0;
 
-      const titan = splash.querySelector('.core-titan-img');
-      const satLeft = splash.querySelector('.core-satellite-img.left');
-      const satRight = splash.querySelector('.core-satellite-img.right');
+    // 統一更新滑鼠/觸控座標（正規化為 -1 ~ 1）
+    function updatePointer(clientX, clientY) {
+      pMouseX = (clientX - window.innerWidth  / 2) / window.innerWidth;
+      pMouseY = (clientY - window.innerHeight / 2) / window.innerHeight;
+    }
+    splash.addEventListener('mousemove', (e) => updatePointer(e.clientX, e.clientY));
+    splash.addEventListener('touchmove', (e) => {
+      updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
 
-      if (titan) titan.style.transform = `translate(${x/110}px, ${y/110}px) rotate(0deg)`;
-      if (satLeft) satLeft.style.transform = `translate(${x/25}px, ${y/25}px) rotate(-15deg)`;
-      if (satRight) satRight.style.transform = `translate(${x/15}px, ${y/15}px) rotate(15deg) scale(0.95)`;
-    });
+    const titan   = splash.querySelector('.core-titan-img');
+    const satLeft = splash.querySelector('.core-satellite-img.left');
+    const satRight= splash.querySelector('.core-satellite-img.right');
+
+    (function animateSplashParallax() {
+      // lerp：不同速度係數創造景深層次
+      titanTX += (pMouseX * 28 - titanTX) * 0.06;   // 主核：慢、穩重
+      titanTY += (pMouseY * 28 - titanTY) * 0.06;
+      satLTX  += (pMouseX * 72 - satLTX)  * 0.04;   // 左衛星：快、飄逸
+      satLTY  += (pMouseY * 72 - satLTY)  * 0.04;
+      satRTX  += (pMouseX * 55 - satRTX)  * 0.05;   // 右衛星：中速
+      satRTY  += (pMouseY * 55 - satRTY)  * 0.05;
+
+      // 使用 CSS translate（與 transform/旋轉動畫完全分離！）
+      if (titan)    titan.style.translate    = `${titanTX.toFixed(2)}px ${titanTY.toFixed(2)}px`;
+      if (satLeft)  satLeft.style.translate  = `${satLTX.toFixed(2)}px ${satLTY.toFixed(2)}px`;
+      if (satRight) satRight.style.translate = `${satRTX.toFixed(2)}px ${satRTY.toFixed(2)}px`;
+
+      if (!splash.style.display || splash.style.display !== 'none') {
+        requestAnimationFrame(animateSplashParallax);
+      }
+    })();
+
 
     // 建立編譯式的 GSAP Timeline
     const tl = gsap.timeline();
@@ -352,42 +377,80 @@ function revealHero() {
   });
 }
 
-// ── 自定義鼠標行為 (CUSTOM CURSOR) ────────────────────────────────────────────
+// ── 自定義鼠標行為 — 六角冰晶游標系統 ─────────────────────────────────
 
 function initCursor() {
-  const dot = document.getElementById('cursor-dot');
+  const dot     = document.getElementById('cursor-dot');
   const outline = document.getElementById('cursor-outline');
   if (!dot || !outline) return;
 
-  let mouseX = 0, mouseY = 0;      // 實際滑鼠位置
-  let outlineX = 0, outlineY = 0;  // 游標外框延遲位置
-  let rafId = null;
+  // ── 座標狀態 ──
+  let mouseX = 0, mouseY = 0;
+  let hexX = 0, hexY = 0;
 
+  // ── 核心點：零延遲精準跟隨 ──
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    // 游標圓點：即時跟隨滑鼠位置
     dot.style.left = mouseX + 'px';
-    dot.style.top = mouseY + 'px';
+    dot.style.top  = mouseY + 'px';
   });
 
-  // 使用 RequestAnimationFrame 實現外框的平滑延遲跟隨 (Linter/Elasticity)
-  function animateOutline() {
-    // 0.25 控制跟隨係數，數值越小越慢/越平滑
-    outlineX += (mouseX - outlineX) * 0.25;
-    outlineY += (mouseY - outlineY) * 0.25;
-    outline.style.left = Math.round(outlineX) + 'px';
-    outline.style.top = Math.round(outlineY) + 'px';
-    requestAnimationFrame(animateOutline);
-  }
-  animateOutline();
+  // ── 六角框：lerp 平滑延遲跟隨 ──
+  (function animateHex() {
+    hexX += (mouseX - hexX) * 0.18;
+    hexY += (mouseY - hexY) * 0.18;
+    outline.style.left = hexX.toFixed(2) + 'px';
+    outline.style.top  = hexY.toFixed(2) + 'px';
+    requestAnimationFrame(animateHex);
+  })();
 
-  // 磁性懸停效果：當移至按鈕或連結上時，放大游標狀態
-  document.querySelectorAll('button, a, .tech-card, .problem-card').forEach(el => {
+  // ── 按鈕懸停：鎖定效果 ──
+  document.querySelectorAll('button, a, .tech-card, .problem-card, [onclick]').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
   });
+
+  // ── 點擊：冰晶爆裂特效 ──
+  window.addEventListener('mousedown', (e) => {
+    document.body.classList.add('cursor-clicking');
+    spawnCrystalBurst(e.clientX, e.clientY);
+  });
+  window.addEventListener('mouseup', () => {
+    document.body.classList.remove('cursor-clicking');
+  });
 }
+
+// ── 冰晶爆裂：6 條碎片以 60° 間距放射 ──────────────────────────────────
+function spawnCrystalBurst(x, y) {
+  // 六角爆裂環
+  const ring = document.createElement('div');
+  ring.className = 'crystal-burst-ring';
+  ring.style.cssText = `left:${x}px; top:${y}px; width:40px; height:40px;`;
+  document.body.appendChild(ring);
+  setTimeout(() => ring.remove(), 550);
+
+  // 6 條冰晶碎片（60° 間距）
+  const colors = ['rgba(168,216,255,0.9)', 'rgba(200,230,255,0.7)', 'rgba(194,156,109,0.8)'];
+  for (let i = 0; i < 6; i++) {
+    const angle  = i * 60;
+    const color  = colors[i % colors.length];
+    const length = 12 + Math.random() * 14; // 12~26px 隨機長度
+
+    const shard = document.createElement('div');
+    shard.className = 'crystal-burst-shard';
+    shard.style.cssText = `
+      left: ${x}px;
+      top: ${y}px;
+      height: ${length}px;
+      background: linear-gradient(to top, transparent, ${color});
+      transform: translate(-50%, -100%) rotate(${angle}deg);
+    `;
+    document.body.appendChild(shard);
+    setTimeout(() => shard.remove(), 600);
+  }
+}
+
 
 // ── 平滑捲動控制 (Lenis) ─────────────────────────────────────
 
