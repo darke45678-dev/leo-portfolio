@@ -112,18 +112,21 @@ body.cursor-clicking #cursor-dot {
               border-color 0.3s, background 0.3s, opacity 0.3s;
 }
 
-/* 按鈕懸停：六角鎖定態 */
+/* 按鈕懸停：六角鎖定態（無旋轉，避免 transform 衝突）*/
 body.cursor-hover #cursor-dot {
   width: 4px;
   height: 4px;
   opacity: 0.3;
+  box-shadow: none;
 }
 body.cursor-hover #cursor-outline {
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   border-color: var(--gold);
+  border-width: 2px;
   background: rgba(194, 156, 109, 0.07);
-  animation: hex-lock-spin 3s linear infinite;
+  /* 移除 animation，改用靜態光暈 */
+  box-shadow: 0 0 12px rgba(194, 156, 109, 0.35), inset 0 0 8px rgba(194, 156, 109, 0.1);
 }
 
 /* 滑鼠按下：六角壓縮 */
