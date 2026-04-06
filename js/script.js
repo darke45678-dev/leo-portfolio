@@ -924,6 +924,30 @@ function closePromptLabModal() {
   setTimeout(() => { p.style.display = 'none'; }, 300);
 }
 
+// ── LINE Bot 數位助理彈窗 (LINE BOT MODAL) ───────────────────────────────────
+
+function openLineBotModal() {
+  const l = document.getElementById('lineBotModal');
+  if (!l) return;
+  if (lenis) lenis.stop();
+  l.style.display = 'flex';
+  requestAnimationFrame(() => {
+    l.style.opacity = '1';
+    if (l.children[0]) l.children[0].style.transform = 'translateY(0)';
+  });
+}
+
+function closeLineBotModal() {
+  const l = document.getElementById('lineBotModal');
+  if (!l) return;
+  l.style.opacity = '0';
+  if (l.children[0]) l.children[0].style.transform = 'translateY(30px)';
+  setTimeout(() => {
+    l.style.display = 'none';
+    if (lenis) lenis.start();
+  }, 300);
+}
+
 // ── 圖片燈箱 (IMAGE LIGHTBOX) ────────────────────────────────────────────────
 
 function spawnImageLightbox(src) {
@@ -988,6 +1012,7 @@ function initEscHandler() {
     closeVividModal();
     closeAudioScoreModal();
     closePromptLabModal();
+    closeLineBotModal();
     const chartModal = document.getElementById('chartDetailModal');
     if (chartModal) chartModal.style.display = 'none';
   });
