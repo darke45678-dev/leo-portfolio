@@ -1,4 +1,4 @@
-﻿# 💾 AI 開發狀態存檔 (Resume State)
+# 💾 AI 開發狀態存檔 (Resume State)
 
 **專案名稱**：LEO · PORTFOLIO (ULTRA-FridgeAI 智慧核心系統)
 **Live Demo**：https://darke45678-dev.github.io/leo-portfolio/
@@ -89,7 +89,8 @@
 *   **數據分流檢索 (Category-Aware Retrieval)**：新增路由字典，根據用戶選擇的品類精準載入對應 Google Sheets 分頁。此優化使單次 AI 請求的 Token 消耗量**降低約 60%**，顯著減少模型運算開銷。
 
 ### 📋 動態選單管理系統 (Rich Menu API Control)
-*   **Messaging API 程式化管理**：捨棄手動建立方式，改由 Python 腳本透過 LINE Messaging API 全自動建立、上傳與管理 Rich Menu，取得完整控制權與 ichMenuId。
+*   **Messaging API 程式化管理**：捨棄手動建立方式，改由 Python 腳本透過 LINE Messaging API 全自動建立、上傳與管理 Rich Menu，取得完整控制權與 
+ichMenuId。
 *   **雙層選單架構**：設計「主選單」與「分類選單」的雙層結構，支援即時回傳、跳轉與返回等複雜交互邏輯。
 *   **資源壓縮與優化**：處理選單圖像的壓縮與格式化，解決跨平台傳輸的大小限制，並透過 API 進行全域用戶權限設定。
 
@@ -192,7 +193,8 @@
 *   **數據分流檢索 (Category-Aware Retrieval)**：新增路由字典，根據用戶選擇的品類精準載入對應 Google Sheets 分頁。此優化使單次 AI 請求的 Token 消耗量**降低約 60%**，顯著減少模型運算開銷。
 
 ### 📋 動態選單管理系統 (Rich Menu API Control)
-*   **Messaging API 程式化管理**：捨棄手動建立方式，改由 Python 腳本透過 LINE Messaging API 全自動建立、上傳與管理 Rich Menu，取得完整控制權與 ichMenuId。
+*   **Messaging API 程式化管理**：捨棄手動建立方式，改由 Python 腳本透過 LINE Messaging API 全自動建立、上傳與管理 Rich Menu，取得完整控制權與 
+ichMenuId。
 *   **雙層選單架構**：設計「主選單」與「分類選單」的雙層結構，支援即時回傳、跳轉與返回等複雜交互邏輯。
 *   **資源壓縮與優化**：處理選單圖像的壓縮與格式化，解決跨平台傳輸的大小限制，並透過 API 進行全域用戶權限設定。
 
@@ -218,4 +220,15 @@
 
 > **致下一次開啟此對話的 AI 助手**：
 >
-> 專案已完成「LINE Bot 數位助理」在作品集中的完整整合，包含卡片視覺設計、架構詳解彈窗與交互邏輯。目前全站具備 4 張高階展示卡。接續任務應回歸計畫中的 UI 演進歷程 (Timeline) 補完，將 `assets/images/` 下的 YOLO 訓練過程影像具現化。
+> 專案已完成「DV Editor 原型」在作品集中的整合，包含第 05 號實驗室卡片 (🚧 實驗性視覺與連結重定向)。目前全站具備 5 張高階展示卡。接續任務應回歸計畫中的 UI 演進歷程 (Timeline) 補完，將 `assets/images/` 下的 YOLO 訓練過程影像具現化。
+
+---
+
+## 🟢 11. 已完成進度 (2026-04-17 DV Editor 實驗性展示整合)
+
+### 🧪 影像編輯器原型展示 (Experimental Build)
+*   **作品集卡片擴充 (Card 05)**：根據 `README-PS.md` 架構在作品集區新增了「DV Editor (v8.0 Prototype)」卡片。
+*   **實驗室視覺語彙 (Lab UI Style)**：
+    *   考量到該專案仍為「不公開測試版」，刻意有別於前四張卡片的精緻底圖，採用了 **「警告橘 (#f97316) 搭配工程斜線斑紋背景 (Repeating Linear Gradient)」**，呈現出高度硬核的開發實驗室風格。
+    *   標籤採用了 `⚠️ EXPERIMENTAL LAB`，清楚向用戶傳達這是一個前端技術概念驗證 (PoC) 原型，而非正式商用產品。
+*   **連結導向更新**：該卡片暫不實作彈窗，點擊會直接透過 `window.open` 另開新分頁連往實際 Deployed 的 GitHub Pages 試作站。
