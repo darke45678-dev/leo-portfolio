@@ -275,7 +275,7 @@
     <!-- 數據統計欄位 -->
     <div class="hero-stats reveal">
       <div class="stat">
-        <div class="stat-num">8</div>
+        <div class="stat-num">9</div>
         <div class="stat-label">技術研發作品</div>
       </div>
       <div class="stat">
@@ -553,6 +553,33 @@
           <p style="margin-bottom: 1rem; color: rgba(255,255,255,0.7); font-size: 0.82rem; line-height: 1.5;">
             「Make.com + Gemini 整合實踐」：多模態自動分鏡腳本生成、新聞流 AI 口播推送，及五維度模組化 SOP 賦能教學。</p>
           <div style="color: #f59e0b; font-size: 0.8rem; font-weight: 700;">探索自動化工作流 →</div>
+        </div>
+      </div>
+
+      <!-- Card 08: Variable Layout Inspector (LayoutDiff) (NEW) -->
+      <div class="problem-card reveal" onclick="openLayoutDiffModal()" style="
+          cursor: pointer; position: relative; overflow: hidden; height: 320px;
+          border-color: rgba(37,99,235,0.4); 
+          background: url('assets/images/08.png') center/cover no-repeat;
+          display: flex; flex-direction: column; justify-content: flex-end;
+          padding: 2rem;
+        ">
+        <!-- Optical blue laser overlay -->
+        <div style="position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, rgba(37,99,235,0.18) 0%, transparent 65%);"></div>
+        <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(59,130,246,0.12) 1px, transparent 0); background-size: 16px 16px;"></div>
+        <div
+          style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.95) 30%, rgba(2,6,23,0.35) 100%); z-index: 1;">
+        </div>
+        <div
+          style="position: absolute; top:0; right:0; padding: 0.5rem 1rem; background: #2563eb; color: white; font-size: 0.6rem; font-weight: 800; z-index: 2; letter-spacing: 1px;">
+          CV INSPECTION LAB (工業視覺檢測)</div>
+        <span class="problem-num"
+          style="position: absolute; top: 1.5rem; left: 1.5rem; color: #3b82f6; opacity: 0.8; font-size: 3rem; margin: 0; z-index: 2; font-family: 'Outfit', sans-serif;">08</span>
+        <div style="position: relative; z-index: 2;">
+          <h3 style="margin: 0.5rem 0; color: #fff;">LayoutDiff：可變版型電子檔檢測系統</h3>
+          <p style="margin-bottom: 1rem; color: rgba(255,255,255,0.7); font-size: 0.82rem; line-height: 1.5;">
+            「非固定模數幾何檢測」：針對混排、缺格與不規則印刷版面，實作自適應模位偵測、準星特徵對位與限定 ROI 逐像素差分引擎。</p>
+          <div style="color: #60a5fa; font-size: 0.8rem; font-weight: 700;">探索檢測系統架構 →</div>
         </div>
       </div>
 
@@ -1559,6 +1586,288 @@
                 </tbody>
               </table>
             </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       LayoutDiff 可變版型電子檔檢測彈窗 (CV INSPECTION MODAL) (NEW)
+       ═══════════════════════════════════════════════════════════════ -->
+  <div id="layoutDiffModal" class="modal-root" data-lenis-prevent style="
+    display: none; position: fixed; inset: 0; z-index: 10001;
+    background: rgba(2,6,23,0.97); backdrop-filter: blur(25px);
+    align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease;
+    overflow-y: auto;
+  " onclick="closeLayoutDiffModal()">
+    <div data-lenis-prevent style="
+      background: #030712; border: 1px solid rgba(37,99,235,0.4);
+      border-radius: 2.5rem; width: 95%; max-width: 1100px; padding: 4rem 2rem;
+      position: relative; max-height: 92vh; overflow-y: auto; z-index: 1;
+      transform: translateY(30px); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 0 100px rgba(37,99,235,0.18);
+    " onclick="event.stopPropagation()">
+      
+      <!-- Close Button -->
+      <button onclick="closeLayoutDiffModal()"
+        style="position: absolute; top: 1.5rem; right: 1.5rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; transition: 0.3s;">✕</button>
+      
+      <!-- Header -->
+      <div style="text-align: center; margin-bottom: 2.2rem;">
+        <span style="color: #3b82f6; font-weight: 800; letter-spacing: 4px; font-size: 0.75rem; text-transform: uppercase;">CV Inspection Lab ｜ Computer Vision & Industrial Alignment</span>
+        <h2 style="font-size: clamp(1.8rem, 4vw, 2.8rem); margin-top: 0.8rem; color: #fff; font-family: 'Outfit', sans-serif;">LayoutDiff：可變版型電子檔檢測系統</h2>
+        <p style="color: rgba(255,255,255,0.6); max-width: 780px; margin: 1rem auto 1.5rem; line-height: 1.6; font-size: 0.9rem;">
+          針對非固定模數、多尺寸混排與不規則印刷版面，設計並驗證之高精度電子檔檢測原型。<br>
+          支援智慧模位邊界偵測、人工防呆檢視、自適應角點準星對位，以及逐模位限定 ROI 零容差像素差分引擎。
+        </p>
+
+        <!-- Direct Actions & Badges -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <a href="https://github.com/darke45678-dev/LayoutDiff" target="_blank"
+            style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.6rem 1.6rem; background: #2563eb; border: 1px solid #60a5fa; color: #fff; border-radius: 2rem; font-size: 0.85rem; font-weight: 700; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(37,99,235,0.4);"
+            onmouseover="this.style.background='#1d4ed8'; this.style.transform='translateY(-2px)';"
+            onmouseout="this.style.background='#2563eb'; this.style.transform='translateY(0)';">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            造訪 GitHub 開源倉庫 ↗
+          </a>
+          <span style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.2rem; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #4ade80; border-radius: 2rem; font-size: 0.8rem; font-weight: 600;">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22c55e;"></span>
+            18/18 Tests PASS (合成測試)
+          </span>
+          <span style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.2rem; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.3); color: #93c5fd; border-radius: 2rem; font-size: 0.8rem; font-weight: 600;">
+            幾何 IoU ≥ 0.9909
+          </span>
+        </div>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div style="display:flex; gap:0.5rem; justify-content:center; margin-bottom: 3rem;">
+        <button class="vivid-tab" id="btn-layoutdiff-part1" onclick="switchLayoutDiffTab('layoutdiff-tab-part1')"
+          style="padding:0.6rem 2rem; border-radius:3rem; border:1px solid #3b82f6;
+                 background:rgba(37,99,235,0.2); color:#60a5fa; font-size:0.85rem; cursor:pointer; font-weight: 700; transition: all 0.3s;">
+          Part 1｜系統流程與演算法視覺
+        </button>
+        <button class="vivid-tab" id="btn-layoutdiff-part2" onclick="switchLayoutDiffTab('layoutdiff-tab-part2')"
+          style="padding:0.6rem 2rem; border-radius:3rem; border:1px solid rgba(255,255,255,0.15);
+                 background:transparent; color:var(--muted); font-size:0.85rem; cursor:pointer; font-weight: 700; transition: all 0.3s;">
+          Part 2｜六大案例驗證與工程邊界
+        </button>
+      </div>
+
+      <!-- TAB 1: 系統流程與演算法視覺 -->
+      <div id="layoutdiff-tab-part1">
+        <div style="font-family: 'Outfit', 'Inter', sans-serif; max-width: 960px; margin: 0 auto;">
+          
+          <!-- Background & Core Concept -->
+          <div style="background: rgba(37,99,235,0.04); border: 1px solid rgba(37,99,235,0.2); border-radius: 1.5rem; padding: 2rem 2.5rem; margin-bottom: 2.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem;">
+              <span style="font-size: 1.5rem;">🎯</span>
+              <h3 style="color: #fff; font-size: 1.15rem; margin: 0;">問題背景：突破固定網格之傳統限制</h3>
+            </div>
+            <p style="color: rgba(255,255,255,0.75); line-height: 1.8; font-size: 0.92rem; margin: 0;">
+              傳統印刷檢測系統多仰賴預設模數、單一尺寸或均勻網格切割。當生產版面轉為<strong>混款、缺格、密集或不規則排列</strong>時，固定規則容易產生漏檢、黏框或誤把板材外圍納入比對等誤報。<br>
+              <strong>LayoutDiff</strong> 核心在於「自適應幾何分群」與「限定模位 ROI 差分」：自動識別標籤輪廓、依長寬聚合分群，並只在人員確認之有效模位框內進行逐像素運算，確保零誤報與極限精準度。
+            </p>
+          </div>
+
+          <!-- 4 Steps Workflow -->
+          <div style="margin-bottom: 3rem;">
+            <h3 style="color: #60a5fa; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem; text-align: center;">四階段工業級檢測工作流</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem;">
+              
+              <!-- Step 1 -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.2rem; padding: 1.6rem 1.4rem;">
+                <span style="font-size: 0.75rem; font-weight: 800; color: #3b82f6; letter-spacing: 2px; display: block; margin-bottom: 0.5rem;">STEP 01</span>
+                <h4 style="color: #fff; font-size: 1.05rem; margin-bottom: 0.6rem;">上傳 Golden 母本</h4>
+                <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.6; margin: 0;">
+                  自動萃取版面邊緣輪廓，計算四角準星特徵與模位幾何框，依模位長寬自動聚合分群。
+                </p>
+              </div>
+
+              <!-- Step 2 -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.2rem; padding: 1.6rem 1.4rem;">
+                <span style="font-size: 0.75rem; font-weight: 800; color: #3b82f6; letter-spacing: 2px; display: block; margin-bottom: 0.5rem;">STEP 02</span>
+                <h4 style="color: #fff; font-size: 1.05rem; margin-bottom: 0.6rem;">人工檢視與建版</h4>
+                <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.6; margin: 0;">
+                  提供 Web Canvas 縮放、微調與重疊防呆診斷，人員確認模位邊界與準星品質後保存版型 Profile。
+                </p>
+              </div>
+
+              <!-- Step 3 -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.2rem; padding: 1.6rem 1.4rem;">
+                <span style="font-size: 0.75rem; font-weight: 800; color: #3b82f6; letter-spacing: 2px; display: block; margin-bottom: 0.5rem;">STEP 03</span>
+                <h4 style="color: #fff; font-size: 1.05rem; margin-bottom: 0.6rem;">待測檔幾何對位</h4>
+                <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.6; margin: 0;">
+                  依準星範本執行幾何對齊；尺寸不符或對位信心不足自動警示並轉入 REVIEW 狀態，拒絕誤判。
+                </p>
+              </div>
+
+              <!-- Step 4 -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.2rem; padding: 1.6rem 1.4rem;">
+                <span style="font-size: 0.75rem; font-weight: 800; color: #3b82f6; letter-spacing: 2px; display: block; margin-bottom: 0.5rem;">STEP 04</span>
+                <h4 style="color: #fff; font-size: 1.05rem; margin-bottom: 0.6rem;">限定模位像素差分</h4>
+                <p style="color: rgba(255,255,255,0.6); font-size: 0.85rem; line-height: 1.6; margin: 0;">
+                  只在保存之有效 ROI 內比對，精確回報差異像素座標與所在模位編號，排除外圍背景干擾。
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Visual Showcase Images -->
+          <div style="margin-bottom: 2rem;">
+            <h3 style="color: #60a5fa; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem; text-align: center;">合成展示素材與差分視覺化</h3>
+            
+            <!-- Image 1 -->
+            <div style="background: #090d16; border: 1px solid rgba(37,99,235,0.3); border-radius: 1.5rem; overflow: hidden; margin-bottom: 2rem;">
+              <img src="assets/images/layoutdiff_overview.png" alt="合成版型與模位邊界偵測" style="width: 100%; height: auto; display: block;">
+              <div style="padding: 1.2rem 1.8rem; background: rgba(0,0,0,0.6); border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span style="color: #fff; font-size: 0.9rem; font-weight: 600;">圖一：合成版型與模位邊界偵測</span>
+                <span style="color: #60a5fa; font-size: 0.75rem; background: rgba(37,99,235,0.2); padding: 0.2rem 0.6rem; border-radius: 1rem;">涵蓋混款尺寸、自適應邊框與準星範本取樣</span>
+              </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div style="background: #090d16; border: 1px solid rgba(37,99,235,0.3); border-radius: 1.5rem; overflow: hidden;">
+              <img src="assets/images/layoutdiff_diff.png" alt="局部 8x8 像素瑕疵差分標註" style="width: 100%; height: auto; display: block;">
+              <div style="padding: 1.2rem 1.8rem; background: rgba(0,0,0,0.6); border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <span style="color: #fff; font-size: 0.9rem; font-weight: 600;">圖二：局部 8×8 像素修改差分對照圖</span>
+                <span style="color: #f87171; font-size: 0.75rem; background: rgba(239,68,68,0.2); padding: 0.2rem 0.6rem; border-radius: 1rem;">Golden vs 待測檔 vs 差異紅點標記 (1:1 像素級精準度)</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB 2: 六大案例驗證與工程邊界 -->
+      <div id="layoutdiff-tab-part2" style="display: none;">
+        <div style="font-family: 'Outfit', 'Inter', sans-serif; max-width: 960px; margin: 0 auto;">
+          
+          <!-- Benchmark Table -->
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.5rem; padding: 2rem 2.5rem; margin-bottom: 2.5rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+              <div>
+                <h3 style="color: #fff; font-size: 1.2rem; margin: 0 0 0.3rem 0;">六大合成版型評測指標 (Ground Truth 逐框嚴格對照)</h3>
+                <p style="color: rgba(255,255,255,0.5); font-size: 0.85rem; margin: 0;">18 項單元測試 100% 通過，最大邊界誤差均控制在 ≤ 1 px 內。</p>
+              </div>
+              <span style="padding: 0.4rem 1rem; background: rgba(34,197,94,0.15); border: 1px solid #22c55e; color: #4ade80; border-radius: 2rem; font-size: 0.8rem; font-weight: 700;">
+                18 TESTS OK (147.5s)
+              </span>
+            </div>
+
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.88rem;">
+                <thead>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.12); color: #60a5fa;">
+                    <th style="padding: 0.8rem 1rem;">合成案例代號</th>
+                    <th style="padding: 0.8rem 1rem;">版型特徵與難點</th>
+                    <th style="padding: 0.8rem 1rem; text-align: center;">模位總數</th>
+                    <th style="padding: 0.8rem 1rem; text-align: center;">最低 IoU</th>
+                    <th style="padding: 0.8rem 1rem; text-align: center;">漏框 / 誤框 / 黏框</th>
+                    <th style="padding: 0.8rem 1rem; text-align: right;">驗證狀態</th>
+                  </tr>
+                </thead>
+                <tbody style="color: rgba(255,255,255,0.8);">
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 0.8rem 1rem; font-family: monospace; color: #93c5fd;">layout_24_large</td>
+                    <td style="padding: 0.8rem 1rem;">大尺寸、淺色底色</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">24</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center; font-weight: 700; color: #4ade80;">0.9979</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">0 / 0 / 0</td>
+                    <td style="padding: 0.8rem 1rem; text-align: right;"><span style="color: #4ade80; font-weight: 700; background: rgba(34,197,94,0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">PASS</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 0.8rem 1rem; font-family: monospace; color: #93c5fd;">layout_60_mixed</td>
+                    <td style="padding: 0.8rem 1rem;">長條與方形混合多尺寸</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">60</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center; font-weight: 700; color: #4ade80;">0.9937</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">0 / 0 / 0</td>
+                    <td style="padding: 0.8rem 1rem; text-align: right;"><span style="color: #4ade80; font-weight: 700; background: rgba(34,197,94,0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">PASS</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 0.8rem 1rem; font-family: monospace; color: #93c5fd;">layout_40_missing</td>
+                    <td style="padding: 0.8rem 1rem;">網格中預留特定空格</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">40</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center; font-weight: 700; color: #4ade80;">0.9956</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">0 / 0 / 0</td>
+                    <td style="padding: 0.8rem 1rem; text-align: right;"><span style="color: #4ade80; font-weight: 700; background: rgba(34,197,94,0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">PASS</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 0.8rem 1rem; font-family: monospace; color: #93c5fd;">layout_180_dense</td>
+                    <td style="padding: 0.8rem 1rem;">高密度小模位緊湊排列</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">180</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center; font-weight: 700; color: #4ade80;">0.9909</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">0 / 0 / 0</td>
+                    <td style="padding: 0.8rem 1rem; text-align: right;"><span style="color: #4ade80; font-weight: 700; background: rgba(34,197,94,0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">PASS</span></td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <td style="padding: 0.8rem 1rem; font-family: monospace; color: #93c5fd;">layout_36_custom_fiducial</td>
+                    <td style="padding: 0.8rem 1rem;">自訂特殊準星、單角低對比</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">36</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center; font-weight: 700; color: #4ade80;">0.9956</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">0 / 0 / 0</td>
+                    <td style="padding: 0.8rem 1rem; text-align: right;"><span style="color: #4ade80; font-weight: 700; background: rgba(34,197,94,0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">PASS</span></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.8rem 1rem; font-family: monospace; color: #93c5fd;">layout_random</td>
+                    <td style="padding: 0.8rem 1rem;">不規則排列、多尺寸緊間距</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">45</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center; font-weight: 700; color: #4ade80;">0.9914</td>
+                    <td style="padding: 0.8rem 1rem; text-align: center;">0 / 0 / 0</td>
+                    <td style="padding: 0.8rem 1rem; text-align: right;"><span style="color: #4ade80; font-weight: 700; background: rgba(34,197,94,0.1); padding: 0.2rem 0.5rem; border-radius: 4px;">PASS</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Engineering Findings (Insights) -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem;">
+            
+            <!-- Insight 1 -->
+            <div style="background: rgba(37,99,235,0.03); border: 1px solid rgba(37,99,235,0.25); border-radius: 1.5rem; padding: 2rem;">
+              <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;">
+                <span style="font-size: 1.4rem;">🔬</span>
+                <h4 style="color: #60a5fa; font-size: 1.1rem; margin: 0;">工程發現：像素相等 ≠ 視覺相等</h4>
+              </div>
+              <p style="color: rgba(255,255,255,0.75); line-height: 1.7; font-size: 0.88rem; margin: 0;">
+                外部影像經過不同壓縮或重新編碼（如 JPEG）後，即使肉眼看起來完全相同，解碼後之數值矩陣仍可能因量化雜訊產生細微差異。零容差檢測流程能精確標示此差異；因此<strong>「準星成功對位」並不等同於「模位內容必然逐像素相符」</strong>。此發現奠定了工業檢測需嚴格界定「編碼差異 vs 物理缺陷」之理論基礎。
+              </p>
+            </div>
+
+            <!-- Insight 2 -->
+            <div style="background: rgba(37,99,235,0.03); border: 1px solid rgba(37,99,235,0.25); border-radius: 1.5rem; padding: 2rem;">
+              <div style="display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem;">
+                <span style="font-size: 1.4rem;">📐</span>
+                <h4 style="color: #60a5fa; font-size: 1.1rem; margin: 0;">對位的亞像素邊界觀察</h4>
+              </div>
+              <p style="color: rgba(255,255,255,0.75); line-height: 1.7; font-size: 0.88rem; margin: 0;">
+                在整數像素平移情境下，準星估計算法可完美復原並達成 0 差異。但若涉及小數像素平移（如 +2.5, −1.3 px）或微小旋轉（0.15°），影像重採樣（Resampling）將在邊緣產生過渡像素，導致全版模位受波及。專案將此現象實測文件化，為後續產線實裝提供了清晰的物理極限邊界。
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Bottom GitHub Box -->
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); border-radius: 1.5rem; padding: 2.2rem; text-align: center;">
+            <h4 style="color: #fff; font-size: 1.15rem; margin-bottom: 0.6rem;">檢視去識別化開源程式碼與模組架構</h4>
+            <p style="color: rgba(255,255,255,0.55); font-size: 0.88rem; max-width: 600px; margin: 0 auto 1.5rem; line-height: 1.6;">
+              專案包含建版偵測器 (builder_detector.py)、版型校驗診斷 (builder_validator.py)、影像對位器 (variable_aligner.py) 與逐像素差分核心。
+            </p>
+            <a href="https://github.com/darke45678-dev/LayoutDiff" target="_blank"
+              style="display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.75rem 2.2rem; background: #2563eb; color: #fff; border-radius: 2rem; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 20px rgba(37,99,235,0.4);">
+              前往 GitHub 查看 LayoutDiff 原始碼 ↗
+            </a>
           </div>
 
         </div>

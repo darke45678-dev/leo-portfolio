@@ -1,5 +1,7 @@
 # Ignore experimental/version 2 folders
 v2-immersive-experience/
+內部系統/
+系統模擬器/
 
 # Ignore system/temp files
 .DS_Store

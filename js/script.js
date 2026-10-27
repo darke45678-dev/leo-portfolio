@@ -1030,6 +1030,58 @@ function switchWorkflowTab(tabId) {
 
 // ── Fridge AI 彈窗控制 (FRIDGE MODAL) (NEW) ───────────────────────────────────
 
+
+// ── LayoutDiff 可變版型電子檔檢測彈窗 (LAYOUTDIFF MODAL) (NEW) ─────────────────
+
+function openLayoutDiffModal() {
+  const w = document.getElementById('layoutDiffModal');
+  if (!w) return;
+  if (lenis) lenis.stop();
+  w.style.display = 'flex';
+  requestAnimationFrame(() => {
+    w.style.opacity = '1';
+    if (w.children[0]) w.children[0].style.transform = 'translateY(0)';
+  });
+}
+
+function closeLayoutDiffModal() {
+  const w = document.getElementById('layoutDiffModal');
+  if (!w) return;
+  w.style.opacity = '0';
+  if (w.children[0]) w.children[0].style.transform = 'translateY(30px)';
+  setTimeout(() => {
+    w.style.display = 'none';
+    if (lenis) lenis.start();
+  }, 300);
+}
+
+function switchLayoutDiffTab(tabId) {
+  // 隱藏內容區
+  document.getElementById('layoutdiff-tab-part1').style.display = 'none';
+  document.getElementById('layoutdiff-tab-part2').style.display = 'none';
+  document.getElementById(tabId).style.display = 'block';
+
+  const btnPart1 = document.getElementById('btn-layoutdiff-part1');
+  const btnPart2 = document.getElementById('btn-layoutdiff-part2');
+
+  // 切換按鈕的 Active 視覺狀態
+  if (tabId === 'layoutdiff-tab-part1') {
+    btnPart1.style.background = 'rgba(37,99,235,0.2)';
+    btnPart1.style.color = '#60a5fa';
+    btnPart1.style.borderColor = '#3b82f6';
+    btnPart2.style.background = 'transparent';
+    btnPart2.style.color = 'var(--muted)';
+    btnPart2.style.borderColor = 'rgba(255,255,255,0.15)';
+  } else {
+    btnPart2.style.background = 'rgba(37,99,235,0.2)';
+    btnPart2.style.color = '#60a5fa';
+    btnPart2.style.borderColor = '#3b82f6';
+    btnPart1.style.background = 'transparent';
+    btnPart1.style.color = 'var(--muted)';
+    btnPart1.style.borderColor = 'rgba(255,255,255,0.15)';
+  }
+}
+
 function openFridgeModal() {
   const w = document.getElementById('fridgeModal');
   if (!w) return;
@@ -1153,6 +1205,7 @@ function initEscHandler() {
     closeLineBotModal();
     closeSimulatorModal();
     closeWorkflowModal();
+    closeLayoutDiffModal();
     closeFridgeModal();
     const chartModal = document.getElementById('chartDetailModal');
     if (chartModal) chartModal.style.display = 'none';
