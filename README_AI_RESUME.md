@@ -217,6 +217,9 @@
     *   在 `index.html` 實作雙頁籤 `layoutDiffModal`，頂部與底部均提供直接前往 GitHub 倉庫（`https://github.com/darke45678-dev/LayoutDiff`）的跳轉連結。
     *   在 `js/script.js` 接入 `openLayoutDiffModal`、`closeLayoutDiffModal`、`switchLayoutDiffTab` 及全域 ESC 快捷鍵關閉邏輯。
     *   將 Hero 區之「技術研發作品」統計數字由 8 更新為 9。
+*   **Card 08 意識流背景升級 (Concept B - Subdued Navy)**：
+    *   捨棄生硬具象之 CAD 網格，全面導入頂級意識流概念藝術「光子流體拓撲與微觀光學焦散波紋」。
+    *   精準壓降飽和度 45% 與降低過曝高光，打造幽深耐看的午夜暗夜藍，與 Card 01/03/04/07 的深邃藝術哲思達到 100% 視覺統一。
 
 ---
 
