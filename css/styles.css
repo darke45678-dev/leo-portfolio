@@ -53,11 +53,12 @@ body.is-loading {
 /* 隱藏所有原生游標（萬用選擇器確保按鈕也隱藏）*/
 *, *::before, *::after { cursor: none !important; }
 
-/* 精準十字準星 — 細小、無圓框 */
+/* 精準十字準星 — 清晰靈敏、零延遲發光核心 */
 #cursor-dot {
-  width: 2px;
-  height: 2px;
-  background: rgba(255,255,255,0.6);
+  width: 4px;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 50%;
   border: none;
   position: fixed;
   left: 0; top: 0;
@@ -65,12 +66,13 @@ body.is-loading {
   z-index: 99999;
   will-change: transform;
   transition: opacity 0.2s;
-  /* 4 向短線標記（±5px，對稱於準星中心）*/
+  /* 4 向微短線標記 + 核心金色光暈 */
   box-shadow:
-    -5px 0 0 rgba(255,255,255,0.5),
-     5px 0 0 rgba(255,255,255,0.5),
-     0 -5px 0 rgba(255,255,255,0.5),
-     0  5px 0 rgba(255,255,255,0.5);
+    0 0 6px rgba(194,156,109,0.85),
+    -5px 0 0 rgba(255,255,255,0.7),
+     5px 0 0 rgba(255,255,255,0.7),
+     0 -5px 0 rgba(255,255,255,0.7),
+     0  5px 0 rgba(255,255,255,0.7);
 }
 
 /* 點擊：準星與 hex 同步消失，讓爆裂獨佔舞台 */
@@ -98,7 +100,7 @@ body.cursor-clicking #cursor-dot {
   height: 44px;
   display: block;
   overflow: visible;
-  transition: scale 0.35s var(--ease), opacity 0.15s;
+  transition: scale 0.15s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s;
   animation: hex-lock-spin 12s linear infinite;  /* 平常慢速恆轉 */
 }
 

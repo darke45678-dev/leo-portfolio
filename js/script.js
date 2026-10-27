@@ -392,40 +392,43 @@ function initCursor() {
   let firstMove = true;
 
   // ── 尺寸快取（避免 offsetWidth 觸發 reflow）──
-  const dotHalf  = 1;   // 2px / 2
-  const wrapHalf = 22;  // 44px（SVG）/ 2
+  const dotHalf  = 2;   // 4px / 2 = 2
+  const wrapHalf = 22;  // 44px（SVG）/ 2 = 22
 
   // 初始隱藏
   dot.style.opacity  = '0';
   wrap.style.opacity = '0';
 
-  // ── dot：即時精準跟隨（準星是真實滑鼠位置）──
+  // ── 監聽滑鼠移動：純記錄座標，交由 rAF 統一調度渲染 ──
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    dot.style.transform = `translate(${mouseX - dotHalf}px, ${mouseY - dotHalf}px)`;
     if (firstMove) {
       firstMove = false;
-      hexX = mouseX; hexY = mouseY;  // 初始化 hex 位置，避免第一次跳動
+      hexX = mouseX;
+      hexY = mouseY;
       dot.style.opacity  = '1';
       wrap.style.opacity = '1';
     }
   });
 
-  // ── hex：lerp 緩跟（產生拉扯延遲感）──
-  (function animateHex() {
-    hexX += (mouseX - hexX) * 0.12;  // 12% per frame：流暢但有感
-    hexY += (mouseY - hexY) * 0.12;
-    wrap.style.transform = `translate(${hexX - wrapHalf}px, ${hexY - wrapHalf}px)`;
-    requestAnimationFrame(animateHex);
-  })();
+  // ── 高靈敏渲染循環（rAF V-Sync 同步，徹底告別延遲感）──
+  (function renderCursor() {
+    // dot：零延遲瞬時鎖定真實滑鼠位置
+    dot.style.transform = `translate(${mouseX - dotHalf}px, ${mouseY - dotHalf}px)`;
 
+    // hex：高響應度輕阻尼（0.48 係數：延遲壓至 30ms 內，順滑俐落）
+    hexX += (mouseX - hexX) * 0.48;
+    hexY += (mouseY - hexY) * 0.48;
+    wrap.style.transform = `translate(${hexX - wrapHalf}px, ${hexY - wrapHalf}px)`;
+
+    requestAnimationFrame(renderCursor);
+  })();
 
   // ── 按鈕懸停：鎖定 hex 狀態（wrapHalf 永遠保持 22，CSS scale 不改 DOM 尺寸）──
   document.querySelectorAll('button, a, .tech-card, .problem-card, [onclick]').forEach(el => {
     el.addEventListener('mouseenter', () => {
       document.body.classList.add('cursor-hover');
-      // wrapHalf 不變！CSS scale:1.6 只是視覺放大，DOM 仍是 44px
     });
     el.addEventListener('mouseleave', () => {
       document.body.classList.remove('cursor-hover');
