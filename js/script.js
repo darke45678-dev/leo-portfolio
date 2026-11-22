@@ -5,19 +5,19 @@
 let lenis = null;
 let bgmWasPlaying = false;
 
-// ── 1. SMOOTH SCROLL (LENIS) ─────────────────────────────────────────────────
+// ── 1. NATIVE HARDWARE-ACCELERATED SCROLL + SMOOTH ANCHOR JUMPS ────────────
 function initSmoothScroll() {
-  if (typeof Lenis === 'undefined') return;
-  lenis = new Lenis({
-    duration: 1.05,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    smoothWheel: true,
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      const targetId = anchor.getAttribute('href');
+      if (!targetId || targetId === '#') return;
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   });
-  function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-  }
-  requestAnimationFrame(raf);
 }
 
 // ── 2. HIGH-RESPONSIVENESS HEXAGONAL CURSOR (0.48 Lerp + rAF Sync) ──────────
@@ -112,8 +112,7 @@ function initBentoInteractions() {
       ticking = true;
       requestAnimationFrame(() => {
         if (glow) {
-          glow.style.left = gx + 'px';
-          glow.style.top  = gy + 'px';
+          glow.style.transform = `translate3d(${gx}px, ${gy}px, 0)`;
         }
         ticking = false;
       });
@@ -277,7 +276,7 @@ function switchCameraCase(caseKey) {
 function openGenericModal(modalId) {
   const m = document.getElementById(modalId);
   if (!m) return;
-  if (lenis) lenis.stop();
+  document.body.style.overflow = 'hidden';
   m.style.display = 'flex';
   requestAnimationFrame(() => {
     m.style.opacity = '1';
@@ -294,7 +293,10 @@ function closeGenericModal(modalId, onAfterClose) {
   if (box) box.style.transform = 'translateY(24px)';
   setTimeout(() => {
     m.style.display = 'none';
-    if (lenis) lenis.start();
+    const anyModalOpen = Array.from(document.querySelectorAll('.modal-root')).some(
+      (el) => el.style.display === 'flex'
+    );
+    if (!anyModalOpen) document.body.style.overflow = '';
     if (typeof onAfterClose === 'function') onAfterClose();
   }, 280);
 }
