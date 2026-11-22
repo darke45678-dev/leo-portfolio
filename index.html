@@ -589,6 +589,79 @@
             </div>
           </div>
 
+          <!-- De-Identified Real-Shot Macro Visual Proof Gallery (Click to Lightbox) -->
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(194,156,109,0.28); border-radius: 1.25rem; padding: 1.8rem; margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.4rem;">
+              <div>
+                <span style="font-family: var(--font-mono); color: var(--gold); font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;">REAL-SHOT MACRO EVIDENCE // DE-IDENTIFIED STROKE CROPS</span>
+                <h3 style="color: #fff; font-size: 1.15rem; margin-top: 0.25rem;">🔬 真實相機微距檢出實證（局部筆畫去識別化特寫 · 點擊圖片可全螢幕放大）</h3>
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-lt); background: rgba(194,156,109,0.12); padding: 0.28rem 0.75rem; border-radius: 6px; border: 1px solid rgba(194,156,109,0.28);">
+                🔍 點擊任一圖表開啟高清燈箱
+              </span>
+            </div>
+
+            <!-- Row 1: Two 3-Panel Real-Shot Comparisons (NG4 3px slash & NG5 V-letter notch) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 1.25rem; margin-bottom: 1.25rem;">
+              
+              <!-- Visual Card 1: OK7 vs NG4 Cell #15 (3px Slash Bite) -->
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/cam_diff_ng4_slash.png" alt="OK7 vs NG4 第15模 斜線3px鋸齒咬邊缺口三圖對照" style="width: 100%; height: auto; display: block;" />
+                <div style="padding: 1rem 1.2rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                    <strong style="color: #fff; font-size: 0.88rem;">實證 A：跨張實拍 3 px 極微斜線缺口 (OK7 vs NG4 #15模)</strong>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #f87171; background: rgba(239,68,68,0.15); padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700;">檢出 3 px (FAIL)</span>
+                  </div>
+                  <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
+                    左為 Golden 母本平滑白字，中為跨次實拍 NG4 原圖，右為經過 ECC 亞像素對位與四道容差過濾後，精準在斜線 <code>/</code> 右側標出紅點與黃色連通域框（前 14 模全數 0 px 零誤報）。
+                  </p>
+                </div>
+              </div>
+
+              <!-- Visual Card 2: OK9 vs NG5 Cell #14 (V-Letter Edge Bite) -->
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/cam_diff_ng5_v_notch.png" alt="OK9 vs NG5 第14模 V字斜邊咬邊缺口三圖對照" style="width: 100%; height: auto; display: block;" />
+                <div style="padding: 1rem 1.2rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+                    <strong style="color: #fff; font-size: 0.88rem;">實證 B：跨張實拍字母斜邊咬邊缺墨 (OK9 vs NG5 #14模)</strong>
+                    <span style="font-family: var(--font-mono); font-size: 0.68rem; color: #f87171; background: rgba(239,68,68,0.15); padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 700;">檢出 299 px (FAIL)</span>
+                  </div>
+                  <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
+                    字母 <code>V</code> 左側正常筆畫邊緣之相機微暈被 2 px 距離變換完美吸收（零假警報），而右側真正的印刷咬邊缺口則被 4 個黃框紅點完整鎖定。
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Row 2: Macro 20x Zoom + Step 4 Grayscale Contrast Principle Diagram -->
+            <div style="display: grid; grid-template-columns: 1fr 1.65fr; gap: 1.25rem; align-items: stretch;">
+              
+              <!-- Visual Card 3: 20x Macro Slash Edge Zoom -->
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/cam_macro_slash_notch.png" alt="20倍微距斜線平滑邊緣與鋸齒缺口特寫" style="width: 100%; height: auto; display: block;" />
+                <div style="padding: 1rem 1.2rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <strong style="color: #fff; font-size: 0.86rem; display: block; margin-bottom: 0.3rem;">實證 C：20 倍微距筆畫邊緣特寫</strong>
+                  <p style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
+                    放大檢視單一斜線筆畫：Golden 具備連續平滑邊緣，待測 NG 品則出現明顯鋸齒凹陷（Notch）。
+                  </p>
+                </div>
+              </div>
+
+              <!-- Visual Card 4: Step 4 Grayscale Contrast Delta >= 50 Diagram -->
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/cam_gray_delta_principle.png" alt="第四關灰階反差驗證防誤報原理圖解" style="width: 100%; height: auto; display: block;" />
+                <div style="padding: 1rem 1.2rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <strong style="color: #fff; font-size: 0.86rem; display: block; margin-bottom: 0.3rem;">實證 D：第四關「灰階反差驗證 (|ΔGray| ≥ 50)」防誤報原理</strong>
+                  <p style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
+                    若僅看二值化門檻（128），光線微偏（灰階 132 vs 118，僅差 14 階）會被誤判為瑕疵；加入 <code>|ΔGray| ≥ 50</code> 反差門檻後，可 100% 濾除臨界光暈並抓出真缺墨（195 vs 25，反差達 170 階）。
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
           <!-- Real-Shot Verification Benchmark Table -->
           <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 1.25rem; padding: 1.8rem;">
             <h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 0.4rem;">📊 相機實拍圖檢測實測驗證結果總表</h3>
