@@ -1,5 +1,6 @@
-# Ignore experimental/version 2 folders
+# Ignore experimental/version 2 folders & legacy backup
 v2-immersive-experience/
+legacy_v1_backup/
 內部系統/
 系統模擬器/
 

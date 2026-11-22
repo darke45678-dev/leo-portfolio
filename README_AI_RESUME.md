@@ -233,15 +233,25 @@
 
 ---
 
-## 🟡 未完成 / 待續任務 (Next Steps - Unified List)
+## 🟢 17. 已完成進度 (2026-11-23 v2.0 全站全新重製：黑曜石 × 香檳金 Bento 設計系統、相機實拍光學檢測與「零」MV 劇院整合)
 
-1.  **UI 演進歷程補完 (UI Evolution Trace)**：將現有的 21 張 V-系列演進影像整理入時間軸（`index.html` 第 612 行佔位符）。
-2.  **多瀏覽器最終驗收**：進行最後的移動端流暢度掃描與相容性測試。
+### 🏛️ 全站從零重製與視覺設計系統升級 (v2.0 Obsidian × Champagne Gold Redesign)
+*   **舊版安全封存**：將舊版 `index.html`、`css/styles.css`、`js/script.js` 完整備份於本機 `legacy_v1_backup/`（並列入 `.gitignore`），徹底清除早期由單一簡報改裝殘留的 `.problem-card` 與行內 `!important` 技術債。
+*   **色彩克制化與統一濾鏡**：捨棄八色霓虹色帶，確立 **90% 曜石黑 (`#050507` + 3% SVG 底片噪點) / 8% 鈦銀冷白 / 2% 香檳金 (`#c29c6d`)** 設計規範；引入 `Outfit` 與 `JetBrains Mono` 等寬工程字體雙系統。
+*   **卡片「休眠 ➔ 甦醒」與滑鼠探照燈邊框**：所有卡片底圖平時維持 `saturate(0.5) brightness(0.62)` 統一深邃暗調，Hover 時平滑甦醒並觸發跟隨游標座標的 `radial-gradient` 金屬探照燈高光。
+*   **首屏去贅肉與三大技術護城河**：移除進站 Splash 攔截門檻，一開站 0 秒直達 Hero 價值主張與「三大技術護城河（Computer Vision / LLM & Cloud Agent / Multimedia & Web Systems）」導覽卡；原創配樂直接署名於右上角音樂控制器（`Original Score by LEO`）。
+*   **3-Tier Bento 黃金階層（6 大精兵專案）**：
+    1.  **Flagship 01｜Camera LayoutDiff 相機實拍光學檢測系統**：升級為「三層式類 QR Code 幾何定位（4 錨點圍欄 ➔ Otsu 15 模中心 RANSAC 仿射 ➔ 單模 ECC 亞像素對位）」與「四道白墨二值遮罩物理容差過濾（15px 腐蝕、P85 亮度平衡、2px 距離變換、ΔGray≥50 反差驗證）」。嚴格去識別化（不含客戶實拍圖），內建可點擊切換 `OK9 良品` / `NG4 3px 斜線微缺口` / `NG5 底排咬邊` / `OK4 2×2微黑點` 的 15 模互動檢測工作台模擬器。
+    2.  **Flagship 02｜FridgeAI 智慧食材管理系統**：整合原 Card 03「三階段提示詞邏輯仲裁架構（JSON Enforcement & 負向食安約束）」至專屬分頁，連通實機影片與 V1~V6 訓練曲線燈箱。
+    3.  **System 03｜24H 雲端數位助理 (LINE Bot)**：展示 FastAPI 零 Token 語意攔截、雙層 Rich Menu 與 5-min 記憶體快取（提速 1000x 至 `0.0005s`）。
+    4.  **System 04｜OmniFlow 企業雙軌系統模擬器**：展示 Fetch 攔截沙盒與 HR/CRM 雙核心線上模擬器直連。
+    5.  **System 05｜LLM 自動化工作流與教學系統**：展示 Make.com + Gemini 雙自動化管線與五維度團隊賦能 SOP。
+    6.  **Theater 06｜虛擬偶像「零 (Rei)」AI 音聲建模與商業級 MV 視覺工程**：全寬壓軸劇院大卡，支援 **Hover 無聲動態播放 14 秒 MV 精華 (`rei_hover_preview.mp4`)**，點擊開啟全螢幕 1080p 正式版 MV 劇院 (`rei_official_mv.mp4`)、30s RVC 人聲頻率試聽與 Window-NCC 毫秒對嘴／單軌 `rawvideo` 逐幀母帶架構詳解。
 
 ---
 
 > **致下一次開啟此對話的 AI 助手**：
 >
-> 專案已完成第 08 號卡片「LayoutDiff 可變版型電子檔檢測系統」之整合（含雙頁籤彈窗、素材圖、測試數據表格與 GitHub 連結）。現在主頁面包含個人品牌 Hero 與 9 個展示卡片（Card 00 - Card 08）。後續可處理 UI 演進歷程 (Timeline) 或是多瀏覽器相容性測試。
+> 專案已完成 v2.0 全站重製並部署至 GitHub Pages。全站現為 3-Tier Bento 黃金階層（6 大精選專案：01 Camera LayoutDiff、02 FridgeAI、03 LINE Bot、04 OmniFlow、05 LLM Workflow、06 Virtual Idol Rei MV Theater）。舊版已安全備份於 `legacy_v1_backup/`。
 
 
