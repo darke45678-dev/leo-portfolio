@@ -304,6 +304,25 @@ function closeGenericModal(modalId, onAfterClose) {
 // Modal 02: Visual Studio DB
 function openVsdbModal()  { openGenericModal('vsdbModal'); }
 function closeVsdbModal() { closeGenericModal('vsdbModal'); }
+function switchVsdbTab(tabId) {
+  const tabs = ['vsdb-tab-part1', 'vsdb-tab-part2', 'vsdb-tab-part3'];
+  const btns = {
+    'vsdb-tab-part1': 'btn-vsdb-part1',
+    'vsdb-tab-part2': 'btn-vsdb-part2',
+    'vsdb-tab-part3': 'btn-vsdb-part3'
+  };
+  tabs.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = id === tabId ? 'block' : 'none';
+    const btn = document.getElementById(btns[id]);
+    if (btn) {
+      const isAct = id === tabId;
+      btn.style.background  = isAct ? 'rgba(194,156,109,0.16)' : 'transparent';
+      btn.style.borderColor = isAct ? 'var(--gold)' : 'rgba(255,255,255,0.15)';
+      btn.style.color       = isAct ? 'var(--gold-lt)' : 'var(--text-secondary)';
+    }
+  });
+}
 
 // Modal 03: Camera LayoutDiff
 function openLayoutDiffModal()  { openGenericModal('layoutDiffModal'); }
