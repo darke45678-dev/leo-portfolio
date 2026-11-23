@@ -911,6 +911,171 @@ body.cursor-clicking #cursor-outline {
   color: #ffffff;
 }
 
+/* ── Top #01 Featured Flagship Split Showcase (Left 16:9 Cinema Stage + Right Specs) ── */
+.bento-featured-split {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  padding: 0;
+  min-height: 430px;
+  border-color: rgba(194, 156, 109, 0.34);
+  background: linear-gradient(135deg, rgba(13, 15, 23, 0.96) 0%, rgba(7, 8, 13, 0.99) 100%);
+}
+
+.featured-media-stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 360px;
+  background: #030407;
+  border-right: 1px solid rgba(194, 156, 109, 0.22);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.4rem 1.6rem;
+}
+
+.featured-poster {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: saturate(0.75) brightness(0.82) contrast(1.06);
+  transform: scale(1.0);
+  transition: filter 0.6s var(--ease), transform 0.7s var(--ease);
+  z-index: 0;
+}
+
+.bento-featured-split:hover .featured-poster {
+  filter: saturate(1.05) brightness(0.95);
+  transform: scale(1.04);
+}
+
+.featured-hover-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bento-featured-split:hover .featured-hover-video {
+  opacity: 1;
+}
+
+.featured-stage-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(5, 5, 7, 0.85) 0%, transparent 45%),
+    linear-gradient(to bottom, rgba(5, 5, 7, 0.65) 0%, transparent 35%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.featured-stage-top {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+}
+
+.featured-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(5, 7, 12, 0.86);
+  border: 1px solid rgba(194, 156, 109, 0.4);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: var(--gold-lt);
+  letter-spacing: 0.06em;
+  backdrop-filter: blur(8px);
+}
+
+.featured-play-overlay {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  align-self: flex-start;
+  padding: 0.55rem 1.1rem 0.55rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(8, 10, 16, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #ffffff;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s, background 0.3s, transform 0.3s;
+}
+
+.bento-featured-split:hover .featured-play-overlay {
+  border-color: var(--gold);
+  background: rgba(194, 156, 109, 0.2);
+  transform: translateY(-2px);
+}
+
+.featured-play-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-lt), var(--gold));
+  color: #050507;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+  box-shadow: 0 0 16px rgba(194, 156, 109, 0.45);
+}
+
+.featured-info-panel {
+  position: relative;
+  z-index: 3;
+  padding: 2rem 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.4rem;
+}
+
+.featured-body .card-title {
+  font-size: clamp(1.4rem, 2.1vw, 1.75rem);
+  margin-bottom: 0.75rem;
+}
+
+.featured-body .card-desc {
+  margin-bottom: 0;
+  font-size: 0.88rem;
+  line-height: 1.72;
+}
+
+.featured-cta-btn {
+  padding: 0.6rem 1.3rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+  .bento-featured-split {
+    grid-template-columns: 1fr;
+  }
+  .featured-media-stage {
+    min-height: 260px;
+    border-right: none;
+    border-bottom: 1px solid rgba(194, 156, 109, 0.22);
+  }
+}
+
 /* ==========================================================================
    6. FOOTER & CONTACT SECTION
    ========================================================================== */

@@ -21,7 +21,7 @@
   <meta name="theme-color" content="#050507" />
 
   <!-- Main Design System Stylesheet -->
-  <link rel="stylesheet" href="css/styles.css?v=2026112302" />
+  <link rel="stylesheet" href="css/styles.css?v=2026112303" />
 </head>
 
 <body>
@@ -173,7 +173,7 @@
   </header>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       5. 3-TIER BENTO PORTFOLIO GALLERY (6 Curated Works)
+       5. 3-TIER BENTO PORTFOLIO GALLERY (MV #01 Top Featured Flagship)
        ═══════════════════════════════════════════════════════════════════════ -->
   <section class="portfolio-section" id="portfolio">
     <div class="section-header">
@@ -188,19 +188,80 @@
 
     <div class="bento-grid">
 
-      <!-- ── TIER 1: DUAL FLAGSHIPS (2 Columns) ────────────────────────── -->
+      <!-- ── TIER 1: TOP FEATURED FLAGSHIP SHOWCASE (12 Columns Split Layout) ── -->
       <div class="bento-tier-label">
         <span class="tier-dot"></span>
-        <span>TIER 01 // FLAGSHIP COMPUTER VISION &amp; AI SYSTEMS (雙王牌核心代表作)</span>
+        <span>TIER 01 // FEATURED MULTIMODAL FLAGSHIP (首席主打代表作：多模態音視訊與商業級 MV 視覺工程)</span>
       </div>
 
-      <!-- CARD 01: Camera LayoutDiff (Real-Shot Optical Inspection Demo) -->
+      <!-- CARD 01: Virtual Idol "Rei" (12-Col Split Flagship: Left 16:9 Hover MV Stage + Right Specs & CTA) -->
+      <article class="bento-card bento-theater bento-featured-split" id="card-rei-theater" onclick="openVividModal()">
+        
+        <!-- Left 16:9 Interactive MV Preview Stage -->
+        <div class="featured-media-stage">
+          <div class="featured-poster" style="background-image: url('assets/images/06_rei_poster.jpg');"></div>
+          <video class="featured-hover-video" id="reiHoverVideo" src="assets/videos/rei_hover_preview.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="featured-stage-vignette"></div>
+
+          <div class="featured-stage-top">
+            <span class="featured-live-badge">
+              <span class="pill-dot pass"></span>
+              <span>HOVER TO PREVIEW 14s MV · 1080P 24FPS MASTER</span>
+            </span>
+          </div>
+
+          <div class="featured-play-overlay">
+            <div class="featured-play-circle">▶</div>
+            <span>點擊開啟 1080p 完整 MV 劇院</span>
+          </div>
+        </div>
+
+        <!-- Right Engineering Specs & Primary CTA -->
+        <div class="featured-info-panel">
+          <div class="card-top-bar">
+            <span class="card-num">01 // FEATURED FLAGSHIP</span>
+            <div class="card-glass-pill">
+              <span class="pill-dot pass"></span>
+              <span>MULTIMODAL AI AUDIO-VISUAL</span>
+            </div>
+          </div>
+
+          <div class="featured-body">
+            <div class="card-metric-banner">
+              <span>✦ 400 Epochs 原創人聲建模 · Window-NCC 毫秒級對嘴 · 24fps 單軌 rawvideo 零誤差母帶</span>
+            </div>
+            <h3 class="card-title">虛擬偶像「零 (Rei)」：AI 音聲建模與商業級 MV 視覺工程</h3>
+            <p class="card-desc">
+              結合全合成零版權糾紛人聲資料集（Suno ➔ UVR5 ➔ Applio RVC 400 Epochs ➔ Audacity 頻譜修復）與電影級視覺鎖定工藝。採用滑動視窗正規化波形交叉相關（Window-NCC）精準定位毫秒對嘴起點，搭配 124 BPM 單軌 rawvideo 零累積誤差閃頻剪輯與 Black Pro-Mist 1/8 柔光母帶後製。
+            </p>
+          </div>
+
+          <div class="card-footer">
+            <div class="card-tags">
+              <span class="tech-pill">Applio RVC (.pth)</span>
+              <span class="tech-pill">Window-NCC Lip-Sync</span>
+              <span class="tech-pill">OpenCV / FFmpeg Rawvideo</span>
+              <span class="tech-pill">1080p Official MV</span>
+            </div>
+            <span class="btn-primary featured-cta-btn">▶ 立即播放 1080p 完整 MV ↗</span>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- ── TIER 2: DUAL COMPUTER VISION & AI FLAGSHIPS (6 + 6 Columns) ──── -->
+      <div class="bento-tier-label">
+        <span class="tier-dot"></span>
+        <span>TIER 02 // COMPUTER VISION &amp; GENERATIVE AI SYSTEMS (工業光學視覺與電腦視覺全端系統)</span>
+      </div>
+
+      <!-- CARD 02: Camera LayoutDiff (Real-Shot Optical Inspection Demo) -->
       <article class="bento-card bento-flagship" onclick="openLayoutDiffModal()">
         <div class="card-bg-media" style="background-image: url('assets/images/08.png');"></div>
         <div class="card-vignette"></div>
 
         <div class="card-top-bar">
-          <span class="card-num">01 // FLAGSHIP</span>
+          <span class="card-num">02 // FLAGSHIP</span>
           <div class="card-glass-pill">
             <span class="pill-dot pass"></span>
             <span>INDUSTRIAL CV &amp; OPTICAL INSPECTION</span>
@@ -227,13 +288,13 @@
         </div>
       </article>
 
-      <!-- CARD 02: FridgeAI (YOLOv11 + Gemini + Prompt Lab Consolidated) -->
+      <!-- CARD 03: FridgeAI (YOLOv11 + Gemini + Prompt Lab Consolidated) -->
       <article class="bento-card bento-flagship" onclick="openFridgeModal()">
         <div class="card-bg-media" style="background-image: url('assets/images/00.jpg');"></div>
         <div class="card-vignette"></div>
 
         <div class="card-top-bar">
-          <span class="card-num">02 // FLAGSHIP</span>
+          <span class="card-num">03 // FLAGSHIP</span>
           <div class="card-glass-pill">
             <span class="pill-dot"></span>
             <span>CV &amp; GENERATIVE AI FULL-STACK</span>
@@ -260,19 +321,19 @@
         </div>
       </article>
 
-      <!-- ── TIER 2: ENTERPRISE SYSTEMS & AUTOMATION (3 Columns) ───────── -->
+      <!-- ── TIER 3: ENTERPRISE SYSTEMS & AUTOMATION (4 + 4 + 4 Columns) ── -->
       <div class="bento-tier-label">
         <span class="tier-dot"></span>
-        <span>TIER 02 // CLOUD AGENT, SANDBOX &amp; WORKFLOW AUTOMATION (企業系統與雲端自動化)</span>
+        <span>TIER 03 // CLOUD AGENT, SANDBOX &amp; WORKFLOW AUTOMATION (企業系統與雲端自動化)</span>
       </div>
 
-      <!-- CARD 03: LINE Bot Cloud AI Agent -->
+      <!-- CARD 04: LINE Bot Cloud AI Agent -->
       <article class="bento-card bento-system" onclick="openLineBotModal()">
         <div class="card-bg-media" style="background-image: url('assets/images/04.jpg');"></div>
         <div class="card-vignette"></div>
 
         <div class="card-top-bar">
-          <span class="card-num">03 // AGENT</span>
+          <span class="card-num">04 // AGENT</span>
           <div class="card-glass-pill">
             <span class="pill-dot pass"></span>
             <span>FASTAPI &amp; LINE BOT</span>
@@ -298,13 +359,13 @@
         </div>
       </article>
 
-      <!-- CARD 04: OmniFlow Suite Enterprise Simulator -->
+      <!-- CARD 05: OmniFlow Suite Enterprise Simulator -->
       <article class="bento-card bento-system" onclick="openSimulatorModal()">
         <div class="card-bg-media" style="background-image: url('assets/images/06.png');"></div>
         <div class="card-vignette"></div>
 
         <div class="card-top-bar">
-          <span class="card-num">04 // SANDBOX</span>
+          <span class="card-num">05 // SANDBOX</span>
           <div class="card-glass-pill">
             <span class="pill-dot"></span>
             <span>ENTERPRISE SIMULATOR</span>
@@ -330,13 +391,13 @@
         </div>
       </article>
 
-      <!-- CARD 05: LLM Workflow Automation & 5-D Training SOP -->
+      <!-- CARD 06: LLM Workflow Automation & 5-D Training SOP -->
       <article class="bento-card bento-system" onclick="openWorkflowModal()">
         <div class="card-bg-media" style="background-image: url('assets/images/07.jpg');"></div>
         <div class="card-vignette"></div>
 
         <div class="card-top-bar">
-          <span class="card-num">05 // WORKFLOW</span>
+          <span class="card-num">06 // WORKFLOW</span>
           <div class="card-glass-pill">
             <span class="pill-dot"></span>
             <span>MAKE.COM &amp; GEMINI</span>
@@ -358,46 +419,6 @@
               <span class="tech-pill">5-D SOP</span>
             </div>
             <span class="card-action">探索工作流 ↗</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- ── TIER 3: MULTIMODAL AI & MV THEATER (Full-Width) ───────────── -->
-      <div class="bento-tier-label">
-        <span class="tier-dot"></span>
-        <span>TIER 03 // MULTIMODAL AI AUDIO-VISUAL &amp; MV PRODUCTION (跨領域多模態音視訊壓軸)</span>
-      </div>
-
-      <!-- CARD 06: Virtual Idol "Rei" (Hover Auto-Playing MV Preview + Full Cinema Modal) -->
-      <article class="bento-card bento-theater" id="card-rei-theater" onclick="openVividModal()">
-        <div class="card-bg-media" style="background-image: url('assets/images/06_rei_poster.jpg');"></div>
-        <video class="card-hover-video" id="reiHoverVideo" src="assets/videos/rei_hover_preview.mp4" muted loop playsinline preload="metadata"></video>
-        <div class="card-vignette"></div>
-
-        <div class="card-top-bar">
-          <span class="card-num">06 // MULTIMODAL SHOWCASE</span>
-          <div class="card-glass-pill">
-            <span class="pill-dot pass"></span>
-            <span>HOVER TO PREVIEW MV · CLICK FOR FULL THEATER</span>
-          </div>
-        </div>
-
-        <div class="card-content">
-          <div class="card-metric-banner">
-            <span>✦ 400 Epochs 原創人聲建模 · Window-NCC 毫秒級對嘴 · 24fps 單軌 rawvideo 零誤差母帶</span>
-          </div>
-          <h3 class="card-title">虛擬偶像「零 (Rei)」：AI 音聲建模與商業級 MV 視覺工程</h3>
-          <p class="card-desc">
-            結合全合成零版權糾紛人聲資料集（Suno ➔ UVR5 ➔ Applio RVC 400 Epochs ➔ Audacity 頻譜修復）與電影級視覺鎖定工藝。採用滑動視窗正規化波形交叉相關（Window-NCC）精準定位毫秒對嘴起點，搭配 124 BPM 單軌 rawvideo 零累積誤差閃頻剪輯與 Black Pro-Mist 1/8 柔光母帶後製。
-          </p>
-          <div class="card-footer">
-            <div class="card-tags">
-              <span class="tech-pill">Applio RVC (.pth)</span>
-              <span class="tech-pill">Window-NCC Lip-Sync</span>
-              <span class="tech-pill">OpenCV / FFmpeg Rawvideo</span>
-              <span class="tech-pill">1080p Official MV</span>
-            </div>
-            <span class="card-action">🎬 開啟劇院播放與技術架構 ↗</span>
           </div>
         </div>
       </article>
@@ -448,6 +469,9 @@
        MODAL 01: CAMERA LAYOUTDIFF (Real-Shot Optical Inspection System)
        Strictly De-identified — 3-Layer Alignment + 4-Stage Mask Tolerance + Interactive 15-Die Workbench
        ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       MODAL 02: CAMERA LAYOUTDIFF (Interactive 15-Die Workbench & 4-Stage Mask Tolerance)
+       ═══════════════════════════════════════════════════════════════════════ -->
   <div id="layoutDiffModal" class="modal-root" data-lenis-prevent onclick="closeLayoutDiffModal()">
     <div class="modal-box" data-lenis-prevent onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeLayoutDiffModal()">✕</button>
@@ -455,7 +479,7 @@
       <!-- Header -->
       <div style="text-align: center; margin-bottom: 2.2rem;">
         <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem; text-transform: uppercase;">
-          FLAGSHIP 01 // INDUSTRIAL COMPUTER VISION &amp; OPTICAL ALIGNMENT
+          FLAGSHIP 02 // INDUSTRIAL COMPUTER VISION &amp; OPTICAL ALIGNMENT
         </span>
         <h2 style="font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.5rem); margin-top: 0.6rem; color: #fff;">
           Camera LayoutDiff：相機實拍圖光學檢測系統
@@ -814,7 +838,7 @@
       <button class="modal-close" onclick="closeFridgeModal()">✕</button>
 
       <div style="text-align: center; margin-bottom: 2rem;">
-        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">FLAGSHIP 02 // YOLOv11m + GEMINI 2.5 + REACT 18</span>
+        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">FLAGSHIP 03 // YOLOv11m + GEMINI 2.5 + REACT 18</span>
         <h2 style="font-family: var(--font-display); color: #fff; font-size: clamp(1.75rem, 3.5vw, 2.4rem); margin: 0.5rem 0;">FridgeAI 智慧食材管理系統</h2>
         <p style="color: var(--text-secondary); font-size: 0.88rem;">12 階雙棲新鮮度視覺辨識 · 結構化提示詞邏輯仲裁 · React 18 全端系統架構</p>
       </div>
@@ -1049,7 +1073,7 @@
       <button class="modal-close" onclick="closeLineBotModal()">✕</button>
 
       <div style="text-align: center; margin-bottom: 2.5rem;">
-        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">PROJECT 03 // ENTERPRISE AI AGENT &amp; CACHE PIPELINE</span>
+        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">PROJECT 04 // ENTERPRISE AI AGENT &amp; CACHE PIPELINE</span>
         <h2 style="font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.4rem); margin-top: 0.5rem; color: #fff;">數位助理：24H 雲端自動化與智慧路由架構</h2>
         <p style="color: var(--text-secondary); max-width: 680px; margin: 0.8rem auto 0; font-size: 0.9rem;">
           串接 LINE Messaging API、FastAPI、Google Sheets 與 Gemini 2.5，透過「零 Token 語意攔截」、「品類分流檢索」與「5-min 記憶體快取」實現毫秒級反應與極致成本優化。
@@ -1151,7 +1175,7 @@
       <button class="modal-close" onclick="closeSimulatorModal()">✕</button>
 
       <div style="text-align: center; margin-bottom: 2.5rem;">
-        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">PROJECT 04 // ENTERPRISE DUAL-CORE SANDBOX</span>
+        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">PROJECT 05 // ENTERPRISE DUAL-CORE SANDBOX</span>
         <h2 style="font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.4rem); margin-top: 0.5rem; color: #fff;">OmniFlow Suite 智慧雙軌系統模擬器</h2>
         <p style="color: var(--text-secondary); max-width: 680px; margin: 0.8rem auto 1.5rem; font-size: 0.9rem;">
           將高度依賴企業私有雲 API（Cloudflare Workers、Notion、Gemini、LINE）的 HR 與 CRM 雙核心系統，重構為「零伺服器、零機密外洩風險、開箱即用」的純前端互動沙盒。
@@ -1194,7 +1218,7 @@
       <button class="modal-close" onclick="closeWorkflowModal()">✕</button>
 
       <div style="text-align: center; margin-bottom: 2rem;">
-        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">PROJECT 05 // MAKE.COM + GEMINI ETL &amp; TEAM ENABLEMENT</span>
+        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">PROJECT 06 // MAKE.COM + GEMINI ETL &amp; TEAM ENABLEMENT</span>
         <h2 style="font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.4rem); margin-top: 0.5rem; color: #fff;">LLM 自動化工作流與五維度教學系統</h2>
         <p style="color: var(--text-secondary); max-width: 680px; margin: 0.8rem auto 0; font-size: 0.9rem;">
           使用 Make.com 串接 Gemini API 解決影視分鏡與新聞採編痛點，並獨創「五維度 SOP 教學模組」賦能非技術團隊無痛導入 AI 自動化。
@@ -1295,7 +1319,7 @@
       <button class="modal-close" onclick="closeVividModal()">✕</button>
 
       <div style="text-align: center; margin-bottom: 2rem;">
-        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">PROJECT 06 // MULTIMODAL AI AUDIO-VISUAL &amp; MV MASTERING</span>
+        <span style="font-family: var(--font-mono); color: var(--gold); font-weight: 700; letter-spacing: 3px; font-size: 0.72rem;">FEATURED FLAGSHIP 01 // MULTIMODAL AI AUDIO-VISUAL &amp; MV MASTERING</span>
         <h2 style="font-family: var(--font-display); font-size: clamp(1.75rem, 3.5vw, 2.4rem); margin-top: 0.5rem; color: #fff;">
           虛擬偶像「零 (Rei)」：AI 音聲建模與商業級 MV 視覺工程
         </h2>

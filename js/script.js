@@ -301,7 +301,11 @@ function closeGenericModal(modalId, onAfterClose) {
   }, 280);
 }
 
-// Modal 01: Camera LayoutDiff
+// Modal 02: Visual Studio DB
+function openVsdbModal()  { openGenericModal('vsdbModal'); }
+function closeVsdbModal() { closeGenericModal('vsdbModal'); }
+
+// Modal 03: Camera LayoutDiff
 function openLayoutDiffModal()  { openGenericModal('layoutDiffModal'); }
 function closeLayoutDiffModal() { closeGenericModal('layoutDiffModal'); }
 function switchLayoutDiffTab(tabId) {
@@ -569,6 +573,7 @@ function initEscHandler() {
       closeModal();
       return;
     }
+    closeVsdbModal();
     closeLayoutDiffModal();
     closeFridgeModal();
     closeLineBotModal();
