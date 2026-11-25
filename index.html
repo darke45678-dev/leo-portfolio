@@ -573,51 +573,47 @@
           <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(194,156,109,0.3); border-radius: 1.25rem; padding: 1.6rem; margin-bottom: 2rem;">
             <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.3rem;">
               <div>
-                <span style="font-family: var(--font-mono); color: var(--gold); font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;">REAL COMFYUI RELAY OUTPUTS // IDENTITY-LOCKING PROOF</span>
-                <h3 style="color: #fff; font-size: 1.15rem; margin-top: 0.25rem;">📸 真實三步接力實證：Step 1 灰背心素體 ➔ Step 2 100% 鎖臉穿衣定裝</h3>
+                <span style="font-family: var(--font-mono); color: var(--gold); font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;">REAL COMFYUI 3-STEP RELAY OUTPUTS // IDENTITY &amp; OUTFIT LOCKING</span>
+                <h3 style="color: #fff; font-size: 1.15rem; margin-top: 0.25rem;">📸 真實三步接力實證：Step 1 灰背心素體 ➔ Step 2 鎖臉穿衣 ➔ Step 3 竹林廣角大片</h3>
               </div>
               <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-lt); background: rgba(194,156,109,0.12); padding: 0.28rem 0.75rem; border-radius: 6px; border: 1px solid rgba(194,156,109,0.28);">
                 🔍 點擊任一圖片開啟高清燈箱
               </span>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 1.25rem;">
-              <!-- Pair A: Z-Image S1 -> FLUX.2 S2 (Persian Model) -->
-              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(194,156,109,0.45);">
-                  <div style="position: relative; background: #000;">
-                    <img onclick="spawnImageLightbox(this.src)" src="assets/images/vsdb_pair1_s1.jpg" alt="Step 1 Z-Image-Turbo 灰背心素體" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
-                    <span style="position: absolute; top: 8px; left: 8px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; background: rgba(5,7,12,0.85); color: #34d399; border: 1px solid rgba(16,185,129,0.45); padding: 0.2rem 0.55rem; border-radius: 4px;">STEP 1 · Z-Image 素體</span>
-                  </div>
-                  <div style="position: relative; background: #000;">
-                    <img onclick="spawnImageLightbox(this.src)" src="assets/images/vsdb_pair1_s2.jpg" alt="Step 2 FLUX.2 100% 鎖臉穿衣定裝" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
-                    <span style="position: absolute; top: 8px; left: 8px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; background: rgba(5,7,12,0.85); color: #38bdf8; border: 1px solid rgba(56,189,248,0.45); padding: 0.2rem 0.55rem; border-radius: 4px;">STEP 2 · FLUX.2 鎖臉換裝</span>
-                  </div>
-                </div>
-                <div style="padding: 1rem 1.2rem; border-top: 1px solid rgba(255,255,255,0.06);">
-                  <strong style="color: #fff; font-size: 0.88rem; display: block; margin-bottom: 0.35rem;">實證組 A：Z-Image 素體 ➔ FLUX.2 跨模型 100% 鎖臉換裝</strong>
-                  <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
-                    Step 1 先以 <code>Z-Image-Turbo</code> 生成波斯女模「灰背心＋灰單車褲」標準棚拍素體；Step 2 自動上傳底圖並以 <code>FLUX.2 ReferenceLatent</code> 鎖定同一張臉孔、濕髮與身形比例，無縫換穿白色薄紗高開衩飄逸長裙。
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.15rem;">
+              <!-- STEP 1 -->
+              <div style="background: #04060c; border: 1px solid rgba(16,185,129,0.32); border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/vsdb_s1_base.jpg" alt="Step 1 Z-Image 灰背心素體" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.95rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06); flex: 1;">
+                  <span style="display: inline-block; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: #34d399; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.35); padding: 0.16rem 0.55rem; border-radius: 4px; margin-bottom: 0.45rem;">STEP 1 · Z-Image-Turbo 素體</span>
+                  <h4 style="color: #fff; font-size: 0.9rem; margin-bottom: 0.3rem;">建立橘髮齊瀏海模特基準底圖</h4>
+                  <p style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
+                    僅編譯第 1 段五官骨相與身形比例，搭配灰背心單車褲與無縫棚拍灰底，鎖定角色臉部與體態基準。
                   </p>
                 </div>
               </div>
 
-              <!-- Pair B: Studio Base -> Sequined Gown -->
-              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(194,156,109,0.45);">
-                  <div style="position: relative; background: #000;">
-                    <img onclick="spawnImageLightbox(this.src)" src="assets/images/vsdb_pair2_s1.jpg" alt="Step 1 攝影棚基準素體" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
-                    <span style="position: absolute; top: 8px; left: 8px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; background: rgba(5,7,12,0.85); color: #34d399; border: 1px solid rgba(16,185,129,0.45); padding: 0.2rem 0.55rem; border-radius: 4px;">STEP 1 · 基準素體</span>
-                  </div>
-                  <div style="position: relative; background: #000;">
-                    <img onclick="spawnImageLightbox(this.src)" src="assets/images/vsdb_pair2_s2.jpg" alt="Step 2 夜景亮片禮服定裝" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
-                    <span style="position: absolute; top: 8px; left: 8px; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; background: rgba(5,7,12,0.85); color: #38bdf8; border: 1px solid rgba(56,189,248,0.45); padding: 0.2rem 0.55rem; border-radius: 4px;">STEP 2 · 亮片禮服定裝</span>
-                  </div>
+              <!-- STEP 2 -->
+              <div style="background: #04060c; border: 1px solid rgba(56,189,248,0.32); border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/vsdb_s2_outfit.jpg" alt="Step 2 FLUX.2 100% 鎖臉穿衣定裝" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.95rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06); flex: 1;">
+                  <span style="display: inline-block; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: #38bdf8; background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.35); padding: 0.16rem 0.55rem; border-radius: 4px; margin-bottom: 0.45rem;">STEP 2 · FLUX.2 鎖臉換裝</span>
+                  <h4 style="color: #fff; font-size: 0.9rem; margin-bottom: 0.3rem;">象牙白麻花針織＋寬褲＋尖頭靴</h4>
+                  <p style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
+                    透過 <code>ReferenceLatent</code> 100% 鎖定同一張臉孔與髮色，將灰背心完整替換為立體麻花針織馬甲、高腰西裝寬褲與尖頭白靴，零灰色殘留。
+                  </p>
                 </div>
-                <div style="padding: 1rem 1.2rem; border-top: 1px solid rgba(255,255,255,0.06);">
-                  <strong style="color: #fff; font-size: 0.88rem; display: block; margin-bottom: 0.35rem;">實證組 B：高對比深膚色骨相鎖定 ➔ 高定禮服與光影替換</strong>
-                  <p style="font-size: 0.78rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
-                    鎖定「蘇丹高定超模骨相、立體膚光與貼頭皮濕髮」特徵，從無縫灰紙棚拍素體直接切換至高奢深藍亮片禮服與霓虹夜景散景，五官辨識度與體態比例維持一致。
+              </div>
+
+              <!-- STEP 3 -->
+              <div style="background: #04060c; border: 1px solid rgba(168,85,247,0.38); border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/vsdb_s3_final.jpg" alt="Step 3 竹林俯拍廣角直閃攝影大片" style="width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.95rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06); flex: 1;">
+                  <span style="display: inline-block; font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; color: #c084fc; background: rgba(168,85,247,0.14); border: 1px solid rgba(168,85,247,0.38); padding: 0.16rem 0.55rem; border-radius: 4px; margin-bottom: 0.45rem;">STEP 3 · 動作與攝影大片</span>
+                  <h4 style="color: #fff; font-size: 0.9rem; margin-bottom: 0.3rem;">幽暗竹林俯拍廣角＋機頂直閃</h4>
+                  <p style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.55; margin: 0;">
+                    以 Step 2 定裝照為底圖，連人帶衣無縫置入幽暗竹林石板道，套用極限俯拍廣角透視、機頂直閃與真實皮膚毛孔高光。
                   </p>
                 </div>
               </div>
