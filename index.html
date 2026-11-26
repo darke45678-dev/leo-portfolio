@@ -1197,9 +1197,37 @@
           <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 1.5rem; padding: 2rem;">
             <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold); font-weight: 700;">MODULE 01 // 12-CLASS FRESHNESS MATRIX</div>
             <h3 style="color: #fff; font-size: 1.25rem; margin: 0.3rem 0 0.8rem;">高精準 12 階雙棲食材狀態辨識 (YOLOv11m)</h3>
-            <p style="color: var(--text-secondary); font-size: 0.86rem; line-height: 1.7; margin-bottom: 1rem;">
+            <p style="color: var(--text-secondary); font-size: 0.86rem; line-height: 1.7; margin-bottom: 1.2rem;">
               鎖定 6 類核心食材（蘋果 Apple、香蕉 Banana、橘子 Orange、菠菜 Spinach、高麗菜 Cabbage、肉類 Meat），透過 5,560+ 組高品質樣本與 300 Epochs 深度收斂，達成細粒度「新鮮 (Fresh) / 腐敗 (Rotten)」12 類別雙向判定。
             </p>
+
+            <!-- Direct Visual Proof Charts (Detection Matrix + Confusion Matrix + Training Curves) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.1rem; margin-bottom: 1.3rem;">
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/ai_detection_matrix.png" alt="YOLOv11m Fresh vs Rotten 雙態食材辨識示意圖" style="width: 100%; height: 195px; object-fit: cover; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.85rem 1rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <strong style="color: #fff; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">1. Fresh / Rotten 雙態分類架構</strong>
+                  <span style="font-size: 0.74rem; color: var(--text-secondary);">6 大食材 × 新鮮綠框／腐敗紅框雙向推論（點擊放大）</span>
+                </div>
+              </div>
+
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/v12.png" alt="YOLOv11m 12類別正規化混淆矩陣" style="width: 100%; height: 195px; object-fit: contain; background: #fff; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.85rem 1rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <strong style="color: #fff; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">2. 12 類別正規化混淆矩陣</strong>
+                  <span style="font-size: 0.74rem; color: var(--text-secondary);">對角線高純度收斂（Meat 1.00 / Spinach 0.97 / Apple 0.90）</span>
+                </div>
+              </div>
+
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.09); border-radius: 1rem; overflow: hidden; display: flex; flex-direction: column;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/v6.png" alt="YOLOv11m Loss 與 mAP50 訓練收斂曲線" style="width: 100%; height: 195px; object-fit: contain; background: #fff; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.85rem 1rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <strong style="color: #fff; font-size: 0.82rem; display: block; margin-bottom: 0.25rem;">3. 訓練 Loss 與 mAP@50 收斂曲線</strong>
+                  <span style="font-size: 0.74rem; color: var(--text-secondary);">Box/Cls Loss 平滑下降，mAP@50 穩定收斂至 0.868</span>
+                </div>
+              </div>
+            </div>
+
             <div class="card-tags">
               <span class="tech-pill">YOLOv11m</span>
               <span class="tech-pill">5,560+ Dataset</span>
@@ -1517,6 +1545,42 @@
 
       <!-- TAB 1 -->
       <div id="workflow-tab-part1">
+        <!-- Real Make.com 4-Node Inventory Auto-Enrichment Blueprint Showcase -->
+        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(194,156,109,0.32); border-radius: 1.25rem; padding: 1.6rem; margin-bottom: 1.6rem;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.1rem;">
+            <div>
+              <span style="font-family: var(--font-mono); color: var(--gold); font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;">REAL MAKE.COM SCENARIO BLUEPRINT // INVENTORY AUTO-ENRICHMENT</span>
+              <h3 style="color: #fff; font-size: 1.15rem; margin-top: 0.25rem;">⚙️ 真實 Make.com 自動填寫庫存工作流節點（含 20s 緩衝防呆設計）</h3>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-lt); background: rgba(194,156,109,0.12); padding: 0.25rem 0.7rem; border-radius: 6px; border: 1px solid rgba(194,156,109,0.28);">
+              🔍 點擊節點圖可全螢幕放大
+            </span>
+          </div>
+
+          <div style="background: #fff; border-radius: 0.9rem; overflow: hidden; border: 1px solid rgba(255,255,255,0.15); margin-bottom: 1.2rem;">
+            <img onclick="spawnImageLightbox(this.src)" src="assets/images/make_inventory_flow.png" alt="Make.com 自動填寫庫存 4 節點工作流：Google Sheets Watch New Rows -> 20s Sleep -> Google Gemini AI -> Update a Row" style="width: 100%; max-height: 290px; object-fit: contain; display: block; margin: 0 auto; cursor: zoom-in;" />
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.9rem; font-size: 0.8rem;">
+            <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.28); border-radius: 0.8rem; padding: 0.95rem;">
+              <strong style="color: #34d399; font-family: var(--font-mono); display: block; margin-bottom: 0.25rem;">1. Watch New Rows</strong>
+              <span style="color: var(--text-secondary);">即時監聽 Google Sheets 庫存表，一旦偵測到新商品列寫入即刻觸發工作流。</span>
+            </div>
+            <div style="background: rgba(168,85,247,0.07); border: 1px solid rgba(168,85,247,0.32); border-radius: 0.8rem; padding: 0.95rem;">
+              <strong style="color: #c084fc; font-family: var(--font-mono); display: block; margin-bottom: 0.25rem;">2. Tools (20s Sleep 緩衝)</strong>
+              <span style="color: var(--text-secondary);">實務防呆關鍵：預留 20 秒緩衝確保人員填完同列欄位，並防止批次貼上時撞上 API 速率限制。</span>
+            </div>
+            <div style="background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.28); border-radius: 0.8rem; padding: 0.95rem;">
+              <strong style="color: #38bdf8; font-family: var(--font-mono); display: block; margin-bottom: 0.25rem;">3. Google Gemini AI</strong>
+              <span style="color: var(--text-secondary);">將新品資訊送入 Gemini，依指定結構格式自動生成商品特色、分類標籤與穿搭文案。</span>
+            </div>
+            <div style="background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.28); border-radius: 0.8rem; padding: 0.95rem;">
+              <strong style="color: #34d399; font-family: var(--font-mono); display: block; margin-bottom: 0.25rem;">4. Update a Row</strong>
+              <span style="color: var(--text-secondary);">依原列 Row ID 將 AI 產出內容精準回填至對應庫存欄位，供下游 LINE Bot 直接檢索。</span>
+            </div>
+          </div>
+        </div>
+
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 1.5rem;">
           <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 1.25rem; padding: 1.8rem;">
             <div style="font-family: var(--font-mono); color: var(--gold); font-size: 0.72rem; font-weight: 700; margin-bottom: 0.5rem;">PIPELINE 01 // MULTIMODAL STORYBOARDING</div>
@@ -1676,6 +1740,50 @@
       <!-- TAB 2: Dual Audio-Visual Engineering Architecture -->
       <div id="vivid-tab-arch" style="display: none;">
         <div style="max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+
+          <!-- 4-Panel Multi-Angle Character Consistency Proof -->
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(194,156,109,0.32); border-radius: 1.25rem; padding: 1.6rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.1rem;">
+              <div>
+                <span style="font-family: var(--font-mono); color: var(--gold); font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;">MULTI-ANGLE CHARACTER CONSISTENCY // 1080P 24FPS MASTER FRAMES</span>
+                <h3 style="color: #fff; font-size: 1.15rem; margin-top: 0.25rem;">🎞️ 跨鏡頭 100% 角色視覺鎖死實證（全片 20+ 機位五官與服裝細節零走鐘）</h3>
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-lt); background: rgba(194,156,109,0.12); padding: 0.25rem 0.7rem; border-radius: 6px; border: 1px solid rgba(194,156,109,0.28);">
+                🔍 點擊劇照開啟高清燈箱
+              </span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.9rem;">
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.08); border-radius: 0.85rem; overflow: hidden;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/rei_kf_2.jpg" alt="零 Rei 俯拍特寫：銀骷髏蕾絲項圈與暗紅唇" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.65rem 0.85rem; font-size: 0.75rem; color: var(--text-secondary);">
+                  <strong style="color: #fff; display: block; margin-bottom: 0.15rem;">機位 A · 俯拍微距特寫</strong>
+                  鎖定銀白齊瀏海、灰榛眼、復古銀骷髏蕾絲項圈與碎鑽滾邊
+                </div>
+              </div>
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.08); border-radius: 0.85rem; overflow: hidden;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/rei_kf_1.jpg" alt="零 Rei 中景側面：無袖絲絨心形領馬甲與不對稱黑薄紗燕尾裙" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.65rem 0.85rem; font-size: 0.75rem; color: var(--text-secondary);">
+                  <strong style="color: #fff; display: block; margin-bottom: 0.15rem;">機位 B · 聚光燈中景</strong>
+                  無袖絲絨馬甲、V字銀鑽腰線與前短後長黑薄紗燕尾裙
+                </div>
+              </div>
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.08); border-radius: 0.85rem; overflow: hidden;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/rei_kf_3.jpg" alt="零 Rei 側面輪廓光：Window-NCC 毫秒級波形對嘴" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.65rem 0.85rem; font-size: 0.75rem; color: var(--text-secondary);">
+                  <strong style="color: #fff; display: block; margin-bottom: 0.15rem;">機位 C · 側逆光對嘴特寫</strong>
+                  Window-NCC 毫秒級波形對位 + Black Pro-Mist 1/8 柔光
+                </div>
+              </div>
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.08); border-radius: 0.85rem; overflow: hidden;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/rei_kf_4.jpg" alt="零 Rei 回眸特寫：游明朝寬字距日文動態歌詞與電影窄黑邊" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.65rem 0.85rem; font-size: 0.75rem; color: var(--text-secondary);">
+                  <strong style="color: #fff; display: block; margin-bottom: 0.15rem;">機位 D · 回眸動態捕捉</strong>
+                  72px 電影窄黑邊 + 游明朝體寬字距純日文動態歌詞母帶
+                </div>
+              </div>
+            </div>
+          </div>
           
           <!-- Audio RVC Pipeline -->
           <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-subtle); border-radius: 1.25rem; padding: 1.8rem;">
