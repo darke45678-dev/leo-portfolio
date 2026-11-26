@@ -398,7 +398,88 @@ function switchWorkflowTab(tabId) {
   }
 }
 
-// Modal 06: Virtual Idol "Rei" MV Theater & Vocal R&D
+// Modal 01: Virtual Idol "Rei" Dual-Track MV Theater & Vocal R&D
+const REI_MV_TRACKS = {
+  mv2: {
+    poster: 'assets/images/01_rei_mv2_poster.jpg',
+    hoverVideo: 'assets/videos/rei_mv2_hover.mp4',
+    fullVideo: 'assets/videos/rei_mv2_official.mp4',
+    liveBadge: 'HOVER TO PREVIEW 14s MV · 2ND SINGLE MASTER',
+    playText: '點擊開啟《とわのふちへ》與雙 MV 1080p 劇院',
+    modalTitle: '《零 — とわのふちへ (Official MV)》鏡中雙生商業電影母帶 (1080p 24fps)',
+    modalSub: '1st 黑零 ✕ 2nd 白零 雙生對唱 ｜ 分鏡感知雙色溫微調 LUT · 0.6s 碎晶色散急推 Spark · 尾奏 4 連斷音暗閃推進',
+    modalBadge: 'DUAL-UNIVERSE LUT & SPARK VFX'
+  },
+  mv1: {
+    poster: 'assets/images/06_rei_poster.jpg',
+    hoverVideo: 'assets/videos/rei_hover_preview.mp4',
+    fullVideo: 'assets/videos/rei_official_mv.mp4',
+    liveBadge: 'HOVER TO PREVIEW 14s MV · 1ST DEBUT SINGLE',
+    playText: '點擊開啟《零 (Rei)》首支單曲與雙 MV 1080p 劇院',
+    modalTitle: '《零 (Rei) - Official MV》首支個人單曲商業後製母帶 (1080p 24fps)',
+    modalSub: '點擊播放時將自動暫停網站背景音樂 ｜ 單軌 rawvideo 0.000s 零誤差對拍 · Black Pro-Mist 1/8 電影調色',
+    modalBadge: '124 BPM STROBE CUT & NCC LIP-SYNC'
+  }
+};
+
+function switchReiTrack(trackKey, autoPlayInModal = false) {
+  const track = REI_MV_TRACKS[trackKey];
+  if (!track) return;
+
+  // 1. Update Homepage Featured Card (#01)
+  const posterEl = document.getElementById('reiFeaturedPoster');
+  const hoverVid = document.getElementById('reiHoverVideo');
+  const liveTxt  = document.getElementById('reiFeaturedLiveText');
+  const playTxt  = document.getElementById('reiFeaturedPlayText');
+  if (posterEl) posterEl.style.backgroundImage = `url('${track.poster}')`;
+  if (liveTxt)  liveTxt.textContent = track.liveBadge;
+  if (playTxt)  playTxt.textContent = track.playText;
+  if (hoverVid && !hoverVid.getAttribute('src').includes(track.hoverVideo)) {
+    const wasHovered = !hoverVid.paused;
+    hoverVid.src = track.hoverVideo;
+    hoverVid.load();
+    if (wasHovered) hoverVid.play().catch(() => {});
+  }
+
+  // Update Homepage Switcher Pill Styles
+  ['mv2', 'mv1'].forEach((k) => {
+    const cBtn = document.getElementById('card-track-btn-' + k);
+    if (cBtn) {
+      const isAct = k === trackKey;
+      cBtn.style.borderColor = isAct ? 'var(--gold)' : 'transparent';
+      cBtn.style.background  = isAct ? 'rgba(194,156,109,0.25)' : 'transparent';
+      cBtn.style.color       = isAct ? '#fff' : 'var(--text-secondary)';
+    }
+    const mBtn = document.getElementById('modal-track-btn-' + k);
+    if (mBtn) {
+      const isAct = k === trackKey;
+      mBtn.style.borderColor = isAct ? 'var(--gold)' : 'rgba(255,255,255,0.12)';
+      mBtn.style.background  = isAct ? 'rgba(194,156,109,0.16)' : 'rgba(255,255,255,0.02)';
+    }
+  });
+
+  // 2. Update Cinema Modal Player
+  const mvPlayer = document.getElementById('reiMvPlayer');
+  const titleEl  = document.getElementById('reiModalTrackTitle');
+  const subEl    = document.getElementById('reiModalTrackSub');
+  const badgeEl  = document.getElementById('reiModalTrackBadge');
+  if (titleEl) titleEl.textContent = track.modalTitle;
+  if (subEl)   subEl.textContent   = track.modalSub;
+  if (badgeEl) badgeEl.textContent = track.modalBadge;
+  if (mvPlayer) {
+    const changed = !mvPlayer.getAttribute('src').includes(track.fullVideo);
+    if (changed) {
+      mvPlayer.pause();
+      mvPlayer.poster = track.poster;
+      mvPlayer.src = track.fullVideo;
+      mvPlayer.load();
+    }
+    if (autoPlayInModal) {
+      mvPlayer.play().catch(() => {});
+    }
+  }
+}
+
 function openVividModal() {
   openGenericModal('vividModal');
 }

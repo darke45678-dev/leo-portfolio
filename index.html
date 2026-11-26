@@ -194,25 +194,37 @@
         <span>TIER 01 // FEATURED MULTIMODAL FLAGSHIP (首席主打代表作：多模態音視訊與商業級 MV 視覺工程)</span>
       </div>
 
-      <!-- CARD 01: Virtual Idol "Rei" (12-Col Split Flagship: Left 16:9 Hover MV Stage + Right Specs & CTA) -->
+      <!-- CARD 01: Virtual Idol "Rei" (12-Col Split Flagship: Dual-Track MV Stage + Right Specs & CTA) -->
       <article class="bento-card bento-theater bento-featured-split" id="card-rei-theater" onclick="openVividModal()">
         
         <!-- Left 16:9 Interactive MV Preview Stage -->
         <div class="featured-media-stage">
-          <div class="featured-poster" style="background-image: url('assets/images/06_rei_poster.jpg');"></div>
-          <video class="featured-hover-video" id="reiHoverVideo" src="assets/videos/rei_hover_preview.mp4" muted loop playsinline preload="metadata"></video>
+          <div class="featured-poster" id="reiFeaturedPoster" style="background-image: url('assets/images/01_rei_mv2_poster.jpg');"></div>
+          <video class="featured-hover-video" id="reiHoverVideo" src="assets/videos/rei_mv2_hover.mp4" muted loop playsinline preload="metadata"></video>
           <div class="featured-stage-vignette"></div>
 
-          <div class="featured-stage-top">
+          <div class="featured-stage-top" style="justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
             <span class="featured-live-badge">
               <span class="pill-dot pass"></span>
-              <span>HOVER TO PREVIEW 14s MV · 1080P 24FPS MASTER</span>
+              <span id="reiFeaturedLiveText">HOVER TO PREVIEW 14s MV · 2ND SINGLE MASTER</span>
             </span>
+
+            <!-- Homepage Dual-Track Switcher Pills -->
+            <div style="display: inline-flex; gap: 0.35rem; background: rgba(5,7,12,0.88); padding: 0.22rem; border-radius: 999px; border: 1px solid rgba(194,156,109,0.38); backdrop-filter: blur(8px);" onclick="event.stopPropagation()">
+              <button type="button" id="card-track-btn-mv2" onclick="switchReiTrack('mv2', false)"
+                style="padding: 0.22rem 0.7rem; border-radius: 999px; border: 1px solid var(--gold); background: rgba(194,156,109,0.25); color: #fff; font-family: var(--font-mono); font-size: 0.63rem; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+                🔥 Track 02｜とわのふちへ (NEW)
+              </button>
+              <button type="button" id="card-track-btn-mv1" onclick="switchReiTrack('mv1', false)"
+                style="padding: 0.22rem 0.7rem; border-radius: 999px; border: 1px solid transparent; background: transparent; color: var(--text-secondary); font-family: var(--font-mono); font-size: 0.63rem; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+                🎵 Track 01｜1st Single
+              </button>
+            </div>
           </div>
 
           <div class="featured-play-overlay">
             <div class="featured-play-circle">▶</div>
-            <span>點擊開啟 1080p 完整 MV 劇院</span>
+            <span id="reiFeaturedPlayText">點擊開啟《とわのふちへ》與雙 MV 1080p 劇院</span>
           </div>
         </div>
 
@@ -222,28 +234,28 @@
             <span class="card-num">01 // FEATURED FLAGSHIP</span>
             <div class="card-glass-pill">
               <span class="pill-dot pass"></span>
-              <span>MULTIMODAL AI AUDIO-VISUAL</span>
+              <span>2 OFFICIAL MVs · DUAL-UNIVERSE IP</span>
             </div>
           </div>
 
           <div class="featured-body">
             <div class="card-metric-banner">
-              <span>✦ 400 Epochs 原創人聲建模 · Window-NCC 毫秒級對嘴 · 24fps 單軌 rawvideo 零誤差母帶</span>
+              <span>✦ 收錄 2 部 1080p 商業 MV 母帶 · 雙生宇宙 (黑零 ✕ 白零) · Window-NCC 毫秒對嘴 · 單軌 rawvideo 零誤差</span>
             </div>
-            <h3 class="card-title">虛擬偶像「零 (Rei)」：AI 音聲建模與商業級 MV 視覺工程</h3>
+            <h3 class="card-title">虛擬偶像「零 (Rei)」：AI 音聲建模與雙單曲商業級 MV 視覺工程</h3>
             <p class="card-desc">
-              結合全合成零版權糾紛人聲資料集（Suno ➔ UVR5 ➔ Applio RVC 400 Epochs ➔ Audacity 頻譜修復）與電影級視覺鎖定工藝。採用滑動視窗正規化波形交叉相關（Window-NCC）精準定位毫秒對嘴起點，搭配 124 BPM 單軌 rawvideo 零累積誤差閃頻剪輯與 Black Pro-Mist 1/8 柔光母帶後製。
+              完整收錄首支單曲與最新二單<strong>《とわのふちへ》（1st 黑零 ✕ 2nd 白零 巴洛克黑曜石紅裂紋雙生鏡）</strong>兩部 1080p 24fps 正式母帶。結合零版權糾紛人聲建模（RVC 400 Epochs）、滑動視窗波形對嘴（Window-NCC）、0.6s 碎晶色散急推 Spark 轉場、分鏡感知雙色溫 LUT 與游明朝寬字距日文動態歌詞。
             </p>
           </div>
 
           <div class="card-footer">
             <div class="card-tags">
+              <span class="tech-pill">Dual 1080p Official MVs</span>
               <span class="tech-pill">Applio RVC (.pth)</span>
               <span class="tech-pill">Window-NCC Lip-Sync</span>
-              <span class="tech-pill">OpenCV / FFmpeg Rawvideo</span>
-              <span class="tech-pill">1080p Official MV</span>
+              <span class="tech-pill">Single-Track Rawvideo</span>
             </div>
-            <span class="btn-primary featured-cta-btn">▶ 立即播放 1080p 完整 MV ↗</span>
+            <span class="btn-primary featured-cta-btn">▶ 開啟雙單曲 1080p 劇院 ↗</span>
           </div>
         </div>
 
@@ -1682,20 +1694,41 @@
         </div>
       </div>
 
-      <!-- TAB 1: Full 1080p MV Cinema Player + 30s Vocal Modeling Audio Player -->
+      <!-- TAB 1: Full 1080p Dual-Track MV Cinema Player + 30s Vocal Modeling Audio Player -->
       <div id="vivid-tab-mv">
         <div style="max-width: 960px; margin: 0 auto;">
+
+          <!-- Dual-MV Episode Selector Bar -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.85rem; margin-bottom: 1.2rem;">
+            <button type="button" id="modal-track-btn-mv2" onclick="switchReiTrack('mv2', true)"
+              style="text-align: left; padding: 0.9rem 1.2rem; border-radius: 1rem; border: 1px solid var(--gold); background: rgba(194,156,109,0.16); cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;">
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--gold-lt); font-weight: 700;">🔥 TRACK 02 · 2ND SINGLE (NEW MASTER)</div>
+                <div style="color: #fff; font-size: 0.95rem; font-weight: 700; margin-top: 0.15rem;">《とわのふちへ》— 鏡中雙生 (黑零 ✕ 白零)</div>
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: #050507; background: var(--gold-lt); padding: 0.2rem 0.6rem; border-radius: 999px; font-weight: 800; flex-shrink: 0;">1080p 24fps</span>
+            </button>
+
+            <button type="button" id="modal-track-btn-mv1" onclick="switchReiTrack('mv1', true)"
+              style="text-align: left; padding: 0.9rem 1.2rem; border-radius: 1rem; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.02); cursor: pointer; transition: all 0.25s; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;">
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-secondary); font-weight: 700;">🎵 TRACK 01 · 1ST DEBUT SINGLE</div>
+                <div style="color: #fff; font-size: 0.95rem; font-weight: 700; margin-top: 0.15rem;">《零 (Rei) - Official MV》首支個人單曲</div>
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-secondary); border: 1px solid rgba(255,255,255,0.18); padding: 0.2rem 0.6rem; border-radius: 999px; font-weight: 700; flex-shrink: 0;">1080p 24fps</span>
+            </button>
+          </div>
           
           <!-- 16:9 Cinema MV Player -->
           <div style="background: #000; border: 1px solid rgba(194,156,109,0.38); border-radius: 1.25rem; overflow: hidden; box-shadow: 0 25px 70px rgba(0,0,0,0.85); margin-bottom: 1.8rem;">
-            <video id="reiMvPlayer" src="assets/videos/rei_official_mv.mp4" poster="assets/images/06_rei_poster.jpg" controls playsinline preload="metadata" style="width: 100%; display: block; aspect-ratio: 16 / 9; background: #000;"></video>
+            <video id="reiMvPlayer" src="assets/videos/rei_mv2_official.mp4" poster="assets/images/01_rei_mv2_poster.jpg" controls playsinline preload="metadata" style="width: 100%; display: block; aspect-ratio: 16 / 9; background: #000;"></video>
             <div style="padding: 1rem 1.5rem; background: rgba(10,12,18,0.9); border-top: 1px solid rgba(255,255,255,0.07); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.6rem;">
               <div>
-                <strong style="color: #fff; font-size: 0.92rem;">《零 (Rei) - Official MV》商業後製母帶 (1080p 24fps)</strong>
-                <span style="display: block; font-size: 0.76rem; color: var(--text-secondary);">點擊播放時將自動暫停網站背景音樂 ｜ 單軌 rawvideo 0.000s 零誤差對拍 · Black Pro-Mist 1/8 電影調色</span>
+                <strong id="reiModalTrackTitle" style="color: #fff; font-size: 0.92rem;">《零 — とわのふちへ (Official MV)》鏡中雙生商業電影母帶 (1080p 24fps)</strong>
+                <span id="reiModalTrackSub" style="display: block; font-size: 0.76rem; color: var(--text-secondary);">1st 黑零 ✕ 2nd 白零 雙生對唱 ｜ 分鏡感知雙色溫微調 LUT · 0.6s 碎晶色散急推 Spark · 尾奏 4 連斷音暗閃推進</span>
               </div>
-              <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold-lt); background: rgba(194,156,109,0.12); border: 1px solid rgba(194,156,109,0.3); padding: 0.25rem 0.7rem; border-radius: 6px;">
-                124 BPM STROBE CUT &amp; NCC LIP-SYNC
+              <span id="reiModalTrackBadge" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold-lt); background: rgba(194,156,109,0.12); border: 1px solid rgba(194,156,109,0.3); padding: 0.25rem 0.7rem; border-radius: 6px;">
+                DUAL-UNIVERSE LUT &amp; SPARK VFX
               </span>
             </div>
           </div>
@@ -1740,6 +1773,41 @@
       <!-- TAB 2: Dual Audio-Visual Engineering Architecture -->
       <div id="vivid-tab-arch" style="display: none;">
         <div style="max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+
+          <!-- 2nd Single《とわのふちへ》24-Frame Director QA Sheet & 21 Couture Album Posters Proof -->
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(194,156,109,0.36); border-radius: 1.25rem; padding: 1.6rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 1.1rem;">
+              <div>
+                <span style="font-family: var(--font-mono); color: var(--gold); font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;">2ND SINGLE《とわのふちへ》PRODUCTION ARTIFACTS // 24-FRAME QA &amp; COUTURE POSTERS</span>
+                <h3 style="color: #fff; font-size: 1.15rem; margin-top: 0.25rem;">🎬 二單《とわのふちへ》24 格導演級母帶 QA 檢視表 ＆ 全 21 款高訂宣傳海報矩陣</h3>
+              </div>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-lt); background: rgba(194,156,109,0.12); padding: 0.25rem 0.7rem; border-radius: 6px; border: 1px solid rgba(194,156,109,0.28);">
+                🔍 點擊圖表可開啟全螢幕高清放大
+              </span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 1.2rem;">
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; overflow: hidden;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/rei_mv2_qa24.jpg" alt="二單《とわのふちへ》Step 6B 商業電影母帶 24 格導演 QA 檢視表" style="width: 100%; height: 260px; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.9rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <strong style="color: #fff; font-size: 0.86rem; display: block; margin-bottom: 0.25rem;">1. Step 6B 商業電影母帶 — 24 格全片時序 QA 檢視表</strong>
+                  <span style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.55; display: block;">
+                    從 <code>00.00s</code> 刀鋒一線光破幕、<code>19.88s</code> 白零撫巴洛克黑曜石鏡、<code>39.75s</code> 黑零紅裂紋鏡對唱，到尾奏 4 連斷音推進之雙色溫 LUT 與游明朝歌詞逐幀檢驗。
+                  </span>
+                </div>
+              </div>
+
+              <div style="background: #04060c; border: 1px solid rgba(255,255,255,0.1); border-radius: 1rem; overflow: hidden;">
+                <img onclick="spawnImageLightbox(this.src)" src="assets/images/rei_mv2_posters_grid.jpg" alt="二單《とわのふちへ》Phase 6 全 21 款高訂唱片宣傳海報總覽" style="width: 100%; height: 260px; object-fit: cover; object-position: top; display: block; cursor: zoom-in;" />
+                <div style="padding: 0.9rem 1.1rem; border-top: 1px solid rgba(255,255,255,0.06);">
+                  <strong style="color: #fff; font-size: 0.86rem; display: block; margin-bottom: 0.25rem;">2. Phase 6 定案素材 — 全 21 款高訂唱片海報成品矩陣</strong>
+                  <span style="font-size: 0.76rem; color: var(--text-secondary); line-height: 1.55; display: block;">
+                    由定案母帶素材延伸自動化排版產出 <code>16:9 橫式縮圖</code>、<code>1:1 單曲封面</code> 與 <code>9:16 直式海報</code> 共 21 款商業級宣發視覺。
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- 4-Panel Multi-Angle Character Consistency Proof -->
           <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(194,156,109,0.32); border-radius: 1.25rem; padding: 1.6rem;">
@@ -1849,7 +1917,7 @@
 
   <!-- Scripts -->
   <script src="js/tech-data.js"></script>
-  <script src="js/script.js?v=2026112304"></script>
+  <script src="js/script.js?v=2026112601"></script>
   <script>
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
       gsap.registerPlugin(ScrollTrigger);
