@@ -401,7 +401,7 @@ function switchWorkflowTab(tabId) {
 // Modal 01: Virtual Idol "Rei" Dual-Track MV Theater & Vocal R&D
 const REI_MV_TRACKS = {
   mv2: {
-    poster: 'assets/images/01_rei_mv2_poster.jpg',
+    poster: 'assets/images/01_rei_mv2_poster.jpg?v=2',
     hoverVideo: 'assets/videos/rei_mv2_hover.mp4',
     fullVideo: 'assets/videos/rei_mv2_official.mp4',
     liveBadge: 'HOVER TO PREVIEW 14s MV · 2ND SINGLE MASTER',
